@@ -1,0 +1,69 @@
+﻿
+<!-- Top row -->
+<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+    <!-- Top-left -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" @onclick="ToggleNavMenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <h1 id="main-title" style="padding:0.5em;">Troop 53 of Castleton, NY</h1>
+</nav>
+
+<!-- Side Bar -->
+<nav class="navbar-default navbar-side" role="navigation">
+    <div class="@NavMenuCssClass" style="@NavMenuStyle">
+        <ul class="nav" id="main-menu">
+            <li>
+                <a href="/index.html"><img class="image avatar" src="https://bsatroop53.com/static/img/53patch.png" width="240" height="240" /></a>
+            </li>
+            <li><a href="/search.html"><i class="fa fa fa-search"></i>Search</a></li>
+            <li><a href="/eagle_scouts.html"><i class="fa fa-solid fa-feather"></i>Eagle Scouts</a></li>
+            <li><a href="/historical_photographs.html"><i class="fa fa-solid fa-camera-retro"></i>Historical Photographs</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!--
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">MarkdownCreator.Web</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+    </nav>
+</div>
+-->
+@code {
+
+    // ---------------- Fields ----------------
+
+    private bool collapseNavMenu = true;
+
+    // ---------------- Properties ----------------
+
+    private string NavMenuCssClass => collapseNavMenu ? "sidebar-collapse collapse in" : "sidebar-collapse collapse";
+
+    private string NavMenuStyle => collapseNavMenu ? "" : "height: 0px;";
+
+    // ---------------- Functions ----------------
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
