@@ -28,14 +28,19 @@ public class Post
     public string? Title { get; set; }
 
     [Required]
+    public DateTime? PostDate { get; set; }
+
+    [Required]
     public string? Description { get; set; }
+
+    public string? Author { get; set; }
 
     [Required]
     public PostCategory Category { get; set; } = PostCategory.News;
 
     [Required]
     public string? PostContents { get; set; } =
-        "## Markdown Editor\nWrite your post here!\n\nIf you don't know Markdown, click the (?) button above.";
+        "## Markdown Editor\n\nWrite your post here!\n\nIf you don't know Markdown, click the (?) button above.";
 
     [Required]
     [Range(typeof(bool), "true", "true", ErrorMessage = "Please acknowledge the contributor guidelines.")]
