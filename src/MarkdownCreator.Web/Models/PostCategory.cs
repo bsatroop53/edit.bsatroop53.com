@@ -16,14 +16,19 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MarkdownCreator.Web;
+namespace MarkdownCreator.Web.Models;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+public enum PostCategory
+{
+    News,
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+    Events,
 
-await builder.Build().RunAsync();
+    CampingTrips,
+
+    EagleProjects,
+
+    PressReleases,
+
+    GoldStarScouts
+}
