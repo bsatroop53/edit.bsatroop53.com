@@ -1,6 +1,12 @@
 @page "/license"
 
-<PageTitle>Software License</PageTitle>
+<PageTitle>@title</PageTitle>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-head-line">@title</h1>
+    </div>
+</div>
 
 <h3 style="text-align: center;">GNU AFFERO GENERAL PUBLIC LICENSE</h3>
 <p style="text-align: center;">Version 3, 19 November 2007</p>
@@ -679,3 +685,7 @@ specific requirements.</p>
 if any, to sign a &quot;copyright disclaimer&quot; for the program, if necessary.
 For more information on this, and how to apply and follow the GNU AGPL, see
 &lt;<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+
+@code {
+    private const string title = "Software License";
+}

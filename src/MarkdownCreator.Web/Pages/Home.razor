@@ -1,10 +1,10 @@
 ﻿@page "/"
 
-<PageTitle>BSA Troop 53 Post Creator</PageTitle>
+<PageTitle>@title</PageTitle>
 
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-head-line">BSA Troop 53 Post Creator</h1>
+        <h1 class="page-head-line">@title</h1>
     </div>
 </div>
 
@@ -31,3 +31,7 @@
         <NavLink href="/editor">Create Post</NavLink>
     </div>
 </div>
+
+@code {
+    private const string title = "BSA Troop 53 Post Creator";
+}
