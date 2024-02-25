@@ -1,5 +1,5 @@
 //
-// Markdown Creator - A way to create posts for bsatroop53.com
+// BsaTroop53 Editor - A way to create posts for bsatroop53.com
 // Copyright (C) 2024 Seth Hendrick
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MarkdownCreator.Web;
+using BsaTroop53Editor.Web;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

@@ -1,5 +1,5 @@
 //
-// Markdown Creator - A way to create posts for bsatroop53.com
+// BsaTroop53 Editor - A way to create posts for bsatroop53.com
 // Copyright (C) 2024 Seth Hendrick
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-namespace MarkdownCreator.Web.Models;
+namespace BsaTroop53Editor.Web.Models;
 
 public enum PostCategory
 {
