@@ -1,0 +1,79 @@
+﻿<div class="form-group">
+    <p>
+        <ul class="@ListClass">
+            @foreach( string tag in this.tagList )
+            {
+                <li>
+                    @tag <button @onclick="() => this.RemoveTag(tag)">X</button>
+                </li>
+            }
+        </ul>
+    </p>
+    <p>
+        <InputText id="addTagField"
+            class="form-control"
+            @bind-Value="@newTag"
+            @onkeypress="OnKeyPress"
+        />
+    </p>
+    <p>
+        <button class="btn btn-success" @onclick="AddTagEvent">Add Tag</button>
+    </p>
+</div>
+
+@code {
+    // ---------------- Fields ----------------
+
+    private string newTag = "";
+
+    private readonly HashSet<string> tagList = new HashSet<string>();
+
+    private static readonly Regex tagTimmer = new Regex(
+        @"[^\w ]",
+        RegexOptions.Compiled | RegexOptions.ExplicitCapture
+    );
+
+    private static readonly Regex tagSpaceTrimmer = new Regex(
+        @"\s{2,}",
+        RegexOptions.Compiled | RegexOptions.ExplicitCapture
+    );
+
+    // ---------------- Properties ----------------
+
+    private string ListClass => this.tagList.Any() ? "tags" : "hidden";
+
+    // ---------------- Functions ----------------
+
+    private void AddTagEvent()
+    {
+        if( string.IsNullOrWhiteSpace( this.newTag ) )
+        {
+            return;
+        }
+
+        this.newTag = this.newTag.ToLower().Trim();
+        this.newTag = tagSpaceTrimmer.Replace( newTag, " " );
+        this.newTag = tagTimmer.Replace( newTag, "" );
+
+        this.tagList.Add( this.newTag );
+        this.newTag = "";
+    }
+
+    private void RemoveTag( string tag )
+    {
+        if( tagList.Contains( tag ) == false )
+        {
+            return;
+        }
+
+        this.tagList.Remove(tag);
+    }
+
+    private void OnKeyPress( KeyboardEventArgs e )
+    {
+        if( ( e.Key == "," ) || ( e.Key == "\n" ) )
+        {
+            AddTagEvent();
+        }
+    }
+}
