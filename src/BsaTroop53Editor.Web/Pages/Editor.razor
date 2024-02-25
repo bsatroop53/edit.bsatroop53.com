@@ -116,7 +116,7 @@
                     Tags
                 </div>
                 <div class="panel-body">
-                    <TagCollection />
+                    <TagCollection @bind-Value="Model!.Tags" />
                 </div>
                 <div class="panel-footer">
                     <p>
@@ -222,6 +222,7 @@
     private void InvalidSubmit()
     {
         Logger.LogInformation( "Not Valid!" );
+        Logger.LogInformation(Model?.Tags?.FirstOrDefault() ?? "Empty");
     }
 }
 

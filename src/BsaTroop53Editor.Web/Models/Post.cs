@@ -16,6 +16,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BsaTroop53Editor.Web.Models;
@@ -65,4 +66,6 @@ public class Post
     [Required]
     [Range(typeof(bool), "true", "true", ErrorMessage = "Please acknowledge the contributor guidelines.")]
     public bool Agreed { get; set; } = false;
+
+    public ICollection<string>? Tags { get; set; } = null;
 }

@@ -1,7 +1,7 @@
 ﻿<div class="form-group">
     <p>
         <ul class="@ListClass">
-            @foreach( string tag in this.tagList )
+            @foreach( string tag in this.Value ?? Array.Empty<string>() )
             {
                 <li>
                     @tag <button @onclick="() => this.RemoveTag(tag)">X</button>
@@ -22,11 +22,10 @@
 </div>
 
 @code {
+
     // ---------------- Fields ----------------
 
     private string newTag = "";
-
-    private readonly HashSet<string> tagList = new HashSet<string>();
 
     private static readonly Regex tagTimmer = new Regex(
         @"[^\w ]",
@@ -40,40 +39,72 @@
 
     // ---------------- Properties ----------------
 
-    private string ListClass => this.tagList.Any() ? "tags" : "hidden";
+    [Parameter]
+    public ICollection<string>? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<ICollection<string>> ValueChanged { get; set; }
+
+    private string ListClass
+    {
+        get
+        {
+            if( ( this.Value is null ) || ( this.Value.Any() == false ) )
+            {
+                return "hidden";
+            }
+            else
+            {
+                return "tags";
+            }
+        }
+    }
 
     // ---------------- Functions ----------------
 
-    private void AddTagEvent()
+    private async Task AddTagEvent()
     {
         if( string.IsNullOrWhiteSpace( this.newTag ) )
         {
             return;
         }
 
+        if( this.Value is null )
+        {
+            this.Value = new HashSet<string>();
+        }
+
         this.newTag = this.newTag.ToLower().Trim();
         this.newTag = tagSpaceTrimmer.Replace( newTag, " " );
         this.newTag = tagTimmer.Replace( newTag, "" );
 
-        this.tagList.Add( this.newTag );
+        this.Value.Add( this.newTag );
         this.newTag = "";
+
+        await ValueChanged.InvokeAsync( this.Value );
     }
 
-    private void RemoveTag( string tag )
+    private async Task RemoveTag( string tag )
     {
-        if( tagList.Contains( tag ) == false )
+        if( this.Value is null )
         {
             return;
         }
 
-        this.tagList.Remove(tag);
+        if( this.Value.Contains( tag ) == false )
+        {
+            return;
+        }
+
+        this.Value.Remove( tag );
+        await ValueChanged.InvokeAsync( this.Value );
     }
 
-    private void OnKeyPress( KeyboardEventArgs e )
+    private async Task OnKeyPress( KeyboardEventArgs e )
     {
         if( ( e.Key == "," ) || ( e.Key == "\n" ) )
         {
-            AddTagEvent();
+            await AddTagEvent();
         }
     }
 }
