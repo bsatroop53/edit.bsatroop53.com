@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsaTroop53Editor.Web", "BsaTroop53Editor.Web\BsaTroop53Editor.Web.csproj", "{DA85CFA9-2532-40A3-A20A-B14CABD89363}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsaTroop53Editor.MarkdownContent", "BsaTroop53Editor.MarkdownContent\BsaTroop53Editor.MarkdownContent.csproj", "{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{DA85CFA9-2532-40A3-A20A-B14CABD89363}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA85CFA9-2532-40A3-A20A-B14CABD89363}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA85CFA9-2532-40A3-A20A-B14CABD89363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80218BED-B733-467C-919F-FA6DF0473EA5}
 	EndGlobalSection
 EndGlobal
