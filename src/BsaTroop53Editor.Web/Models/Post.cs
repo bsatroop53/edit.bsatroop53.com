@@ -30,10 +30,30 @@ public class Post
     [Required]
     public DateTime? PostDate { get; set; }
 
+    public bool IsPostDateAnEstimate { get; set; } = false;
+
     [Required]
     public string? Description { get; set; }
 
     public string? Author { get; set; }
+
+    [Range(
+        -90,
+        90, 
+        ErrorMessage = "Invalid Latitude (Must be between -90 and 90)",
+        MaximumIsExclusive = false,
+        MinimumIsExclusive = false
+    )]
+    public double? Latitude { get; set; }
+
+    [Range(
+        -180,
+        180,
+        ErrorMessage = "Invalid Longitude (Must be between -180 and 180)",
+        MaximumIsExclusive = false,
+        MinimumIsExclusive = false
+    )]
+    public double? Longitude { get; set; }
 
     [Required]
     public PostCategory Category { get; set; } = PostCategory.News;

@@ -13,97 +13,144 @@
     <div class="col-md-12">
         <EditForm Model="Model" FormName="NewPostForm" OnValidSubmit="@ValidSubmit" OnInvalidSubmit="@InvalidSubmit">
             <DataAnnotationsValidator />
-            <div class="form-group">
-                <p>
-                    <label for="postTitleField">
-                        Title
-                    </label>
-                </p>
-                <p>
-                    <InputText 
-                        id="postTitleField"
-                        class="form-control"
-                        @bind-Value="Model!.Title"
-                        placeholder="A headline of what the post is all about."
-                    />
-                </p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Post Information
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <p>
+                            <label for="postTitleField">
+                                Title
+                            </label>
+                        </p>
+                        <p>
+                            <InputText 
+                                id="postTitleField"
+                                class="form-control"
+                                @bind-Value="Model!.Title"
+                                placeholder="A headline of what the post is all about."
+                            />
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <label for="postDateField">
+                                Post Date - When the event took place
+                            </label>
+                        </p>
+                        <p>
+                            <InputDate 
+                                id="postDateField"
+                                class="form-control"
+                                Type="InputDateType.Date"
+                                min="@(new DateTime( 1924, 1, 1 ).ToString( "yyyy-MM-dd" ))"
+                                max="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                @bind-Value="Model!.PostDate"
+                            />
+                        </p>
+                        <p class="checkbox">
+                            <label for="dateIsEstimatteCheckbox">
+                            <InputCheckbox id="dateIsEstimatteCheckbox" @bind-Value="Model!.IsPostDateAnEstimate" />
+                            This date is an estimate.
+                            </label>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <label for="descriptionField">
+                                Description
+                            </label>
+                        </p>
+                        <p>
+                            <InputText 
+                                id="descriptionField" 
+                                class="form-control"
+                                @bind-Value="@Model!.Description"
+                                placeholder="A one-sentence overview of this post."
+                            />
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <label for="authorField">
+                                Author
+                            </label>
+                        </p>
+                        <p>
+                            <InputText 
+                                id="authorField" 
+                                class="form-control"
+                                @bind-Value="@Model!.Author"
+                                placeholder="Who is writing this post?  Leave blank to remain anonymous."
+                            />
+                        </p>
+                    </div>
+                    <div>
+                        <label for="postCategoryInput">
+                            Category - Where does your post fit in best?
+                            <InputSelect class="form-control" @bind-Value="Model!.Category">
+                                <option value="@PostCategory.News">News</option>
+                                <option value="@PostCategory.Events">Events</option>
+                                <option value="@PostCategory.CampingTrips">Camping Trips</option>
+                                <option value="@PostCategory.EagleProjects">Eagle Projects</option>
+                                <option value="@PostCategory.PressReleases">Press Releases</option>
+                                <option value="@PostCategory.GoldStarScouts">Gold Star Scouts</option>
+                            </InputSelect>
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <p>
-                    <label for="postDateField">
-                        Post Date - When the event took place
-                    </label>
-                </p>
-                <p>
-                    <InputDate 
-                        id="postDateField"
-                        class="form-control"
-                        Type="InputDateType.Date"
-                        min="@(new DateTime( 1924, 1, 1 ).ToString( "yyyy-MM-dd" ))"
-                        max="@DateTime.Today.ToString("yyyy-MM-dd")"
-                        @bind-Value="Model!.PostDate"
-                    />
-                </p>
-            </div>
-            <div class="form-group">
-                <p>
-                    <label for="descriptionField">
-                        Description
-                    </label>
-                </p>
-                <p>
-                    <InputText 
-                        id="descriptionField" 
-                        class="form-control"
-                        @bind-Value="@Model!.Description"
-                        placeholder="A one-sentence overview of this post."
-                    />
-                </p>
-            </div>
-            <div class="form-group">
-                <p>
-                    <label for="authorField">
-                        Author
-                    </label>
-                </p>
-                <p>
-                    <InputText 
-                        id="authorField" 
-                        class="form-control"
-                        @bind-Value="@Model!.Author"
-                        placeholder="Who is writing this post?  Leave blank to remain anonymous."
-                    />
-                </p>
-            </div>
-            <div>
-                <label for="postCategoryInput">
-                    Category - Where does your post fit in best?
-                    <InputSelect class="form-control" @bind-Value="Model!.Category">
-                        <option value="@PostCategory.News">News</option>
-                        <option value="@PostCategory.Events">Events</option>
-                        <option value="@PostCategory.CampingTrips">Camping Trips</option>
-                        <option value="@PostCategory.EagleProjects">Eagle Projects</option>
-                        <option value="@PostCategory.PressReleases">Press Releases</option>
-                        <option value="@PostCategory.GoldStarScouts">Gold Star Scouts</option>
-                    </InputSelect>
-                </label>
-            </div>
-            <div class="form-group">
-                <p>
-                    <label for="postContentsField">
-                        Post Contents
-                    </label>
-                </p>
-                <p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Post Contents
+                </div>
+                <div class="panel-body">
+                <div class="form-group">
                     <MarkdownEditor @bind-Value="Model!.PostContents" />
-                </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Location Information (if any)
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <p>
+                            <label for="latitudeField">
+                                Latitude
+                            </label>
+                        </p>
+                        <p>
+                            <InputNumber id="latitudeField"
+                                         class="form-control"
+                                         @bind-Value="@Model!.Latitude"
+                                         placeholder="Latitude of the event location.  Leave blank to not specify a location" />
+                        </p>
+                        <p>
+                            <label for="longitudeField">
+                                Longitude
+                            </label>
+                        </p>
+                        <p>
+                            <InputNumber id="longitudeField"
+                                         class="form-control"
+                                         @bind-Value="@Model!.Longitude"
+                                         placeholder="Longitude of the event location.  Leave blank to not specify a location" />
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <small>You can get GPS Coordinates from <a href="https://www.gps-coordinates.net/" target="_blank" rel="noopener noreferrer nofollow">this website</a>, and inputting the "decimal degress" values in this form.</small>
+                </div>
             </div>
             <div class="form-group">
-            </div>
-            <div class="form-group">
-                <p class="form-control">
-                    <InputCheckbox id="readGuideCheckBox" @bind-Value="Model!.Agreed"/>
-                    <label for="readGuideCheckBox">I have read the contribution guidelines, and agree to follow them.</label>
+                <p class="checkbox">
+                    <label for="readGuideCheckBox">
+                        <InputCheckbox id="readGuideCheckBox" @bind-Value="Model!.Agreed"/>
+                        I have read the contribution guidelines, and agree to follow them.
+                    </label>
                 </p>
             </div>
             <div>
