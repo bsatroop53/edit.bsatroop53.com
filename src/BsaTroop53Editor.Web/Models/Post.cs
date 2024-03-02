@@ -16,8 +16,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace BsaTroop53Editor.Web.Models;
 
@@ -29,7 +29,7 @@ public class Post
     public string? Title { get; set; }
 
     [Required]
-    public DateTime? PostDate { get; set; }
+    public DateOnly? PostDate { get; set; }
 
     public bool IsPostDateAnEstimate { get; set; } = false;
 
@@ -59,7 +59,9 @@ public class Post
     [Required]
     public PostCategory Category { get; set; } = PostCategory.News;
 
-    [Required]
+    /// <remarks>
+    /// Post contents can be empty if there is at least one photo.
+    /// </remarks>
     public string? PostContents { get; set; } =
         "## Markdown Editor\n\nWrite your post here!\n\nIf you don't know Markdown, click the (?) button above.";
 
@@ -68,4 +70,6 @@ public class Post
     public bool Agreed { get; set; } = false;
 
     public ICollection<string>? Tags { get; set; } = null;
+
+    public ICollection<string>? Photos { get; set; } = null;
 }

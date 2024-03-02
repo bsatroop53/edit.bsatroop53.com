@@ -28,7 +28,21 @@ public enum PostCategory
 
     EagleProjects,
 
-    PressReleases,
+    PressReleases
+}
 
-    GoldStarScouts
+public static class PostCategoryExtensions
+{
+    public static string ToHumanReadableString( this PostCategory postCategory )
+    {
+        return postCategory switch
+        {
+            PostCategory.News => "News",
+            PostCategory.Events => "Events",
+            PostCategory.CampingTrips => "Camping Trips",
+            PostCategory.EagleProjects => "Eagle Projects",
+            PostCategory.PressReleases => "Press Releases",
+            _ => throw new NotImplementedException( $"Have not implemented {postCategory}." ),
+        };
+    }
 }
