@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\FAQ.md" />
+    <None Remove="Content\Home.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- 
 	Take a private dependency on Markdig (PrivateAssets=all) Consumers of this generator will not reference it.
     Set GeneratePathProperty=true so we can reference the binaries via the PKGMarkdig property 
@@ -17,6 +22,11 @@
 
   <ItemGroup>
 	<EmbeddedResource Include="..\..\License.md" Link="Content\License.md" />
+	<EmbeddedResource Include="Content\FAQ.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Home.md" />
   </ItemGroup>
 
   <PropertyGroup>

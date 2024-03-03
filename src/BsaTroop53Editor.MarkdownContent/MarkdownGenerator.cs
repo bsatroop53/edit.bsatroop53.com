@@ -46,6 +46,14 @@ internal static partial class MarkdownContent
         licenseHtml = 
 @""{ConvertMarkdownAsHtml( "License.md" )}
 "";
+
+        homeHtml = 
+@""{ConvertMarkdownAsHtml( "Home.md" )}
+"";
+
+        faqHtml =
+@""{ConvertMarkdownAsHtml( "FAQ.md" )}
+"";
     }}
 }}
             ";

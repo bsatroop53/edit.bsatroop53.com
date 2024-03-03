@@ -26,6 +26,10 @@ namespace BsaTroop53Editor.Web
 
         private static readonly string licenseHtml = "";
 
+        private static readonly string homeHtml = "";
+
+        private static readonly string faqHtml = "";
+
         // ---------------- Constructor ----------------
 
         // Constructor is source-code generated.
@@ -33,5 +37,9 @@ namespace BsaTroop53Editor.Web
         // ---------------- Properties ----------------
 
         public static MarkupString LicenceString => (MarkupString)licenseHtml;
+
+        public static MarkupString HomePageString => (MarkupString)homeHtml;
+
+        public static MarkupString FaqString => (MarkupString)faqHtml;
     }
 }
