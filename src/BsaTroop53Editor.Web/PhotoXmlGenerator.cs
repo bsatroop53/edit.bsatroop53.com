@@ -23,13 +23,19 @@ namespace BsaTroop53Editor.Web
 {
     public static class PhotoXmlGenerator
     {
+        // ---------------- Fields ----------------
+
+        internal const string xmlFolder = "_gallerydata";
+
+        // ---------------- Functions ----------------
+
         /// <param name="fileName">
         /// Set to empty string if this method returns null.
         /// </param>
         /// <returns>
         /// Null if no XML file for photos should be generated.
         /// </returns>
-        public static XDocument? ToXmlFile( this Post post, out string fileName )
+        public static XDocument? ToGalleryXml( this Post post, out string fileName )
         {
             if( ( post.Photos is null ) || ( post.Photos.Any() == false ) )
             {
@@ -67,11 +73,21 @@ namespace BsaTroop53Editor.Web
             return doc;
         }
 
-        private static string GetPhotoXmlFileName( Post post )
+        public static string GetPhotoXmlFileNameWithouExtension( this Post post )
         {
             ArgumentNullException.ThrowIfNull( post.Title, nameof( post.Title ) );
 
-            return $"{post.Title.ToFileName()}.xml";
+            return $"{post.Title.ToFileName()}";
+        }
+
+        public static string GetXmlRelativePath( this Post post )
+        {
+            return $"{xmlFolder}/{GetPhotoXmlFileName( post )}";
+        }
+
+        private static string GetPhotoXmlFileName( Post post )
+        {
+            return $"{GetPhotoXmlFileNameWithouExtension( post )}.xml";
         }
 
         private static string GetGalleryPath( Post post )

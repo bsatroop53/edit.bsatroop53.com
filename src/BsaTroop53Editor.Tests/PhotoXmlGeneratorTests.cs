@@ -42,7 +42,7 @@ namespace BsaTroop53Editor.Tests
             };
 
             // Act
-            XDocument? xmlFile = post.ToXmlFile( out string fileName );
+            XDocument? xmlFile = post.ToGalleryXml( out string fileName );
 
             // Check
             Assert.IsNull( xmlFile );
@@ -55,11 +55,11 @@ namespace BsaTroop53Editor.Tests
             // Setup
             var post = new Post
             {
-                Photos = Array.Empty<PhotoInfo>()
+                Photos = new List<PhotoInfo>()
             };
 
             // Act
-            XDocument? xmlFile = post.ToXmlFile( out string fileName );
+            XDocument? xmlFile = post.ToGalleryXml( out string fileName );
 
             // Check
             Assert.IsNull( xmlFile );
@@ -70,7 +70,7 @@ namespace BsaTroop53Editor.Tests
         public void PhotosTest()
         {
             // Setup
-            var photos = new PhotoInfo[]
+            var photos = new List<PhotoInfo>
             {
                 new PhotoInfo( "1930 gerrysipter franklinvandewal jaypaul.jpg", "abcef", 50 )
                 {
@@ -101,7 +101,7 @@ $@"<ImageGallery ImageDir=""static/img/galleries/historical_photographs"" Thumbn
 </ImageGallery>";
 
             // Act
-            XDocument? xmlFile = post.ToXmlFile( out string fileName );
+            XDocument? xmlFile = post.ToGalleryXml( out string fileName );
 
             // Check
             Assert.IsNotNull( xmlFile );

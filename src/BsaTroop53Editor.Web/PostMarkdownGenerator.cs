@@ -78,6 +78,11 @@ namespace BsaTroop53Editor.Web
                 fileContents.AppendLine( $"longitude: {post.Longitude}" );
             }
 
+            if( post.Photos?.Any() ?? false )
+            {
+                fileContents.AppendLine( $@"image_gallery: ""{post.GetXmlRelativePath()}""" );
+            }
+
             fileContents.AppendLine( "---" );
             fileContents.AppendLine();
 
@@ -89,12 +94,17 @@ namespace BsaTroop53Editor.Web
             return fileContents.ToString();
         }
 
-        private static string GetMarkdownFileName( Post post )
+        public static string GetMarkdownFileNameWithoutExtension( this Post post )
         {
             ArgumentNullException.ThrowIfNull( post.PostDate, nameof( post.PostDate ) );
             ArgumentNullException.ThrowIfNull( post.Title, nameof( post.Title ) );
 
-            return $"{post.PostDate.Value.ToString( "yyyy-MM-dd" )}-{whitespaceRegex.Replace( post.Title, "" )}.md";
+            return $"{post.PostDate.Value.ToString( "yyyy-MM-dd" )}-{whitespaceRegex.Replace( post.Title, "" )}";
+        }
+
+        private static string GetMarkdownFileName( Post post )
+        {
+            return $"{GetMarkdownFileNameWithoutExtension( post )}.md";
         }
 
         private static string GetLayout( Post post )

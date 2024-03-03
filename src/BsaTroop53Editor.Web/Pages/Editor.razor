@@ -1,6 +1,9 @@
 @page "/editor"
 @inject ILogger<Post> Logger
 
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
 <PageTitle>@title</PageTitle>
 
 <div class="row">
@@ -110,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <PhotoCollection/>
+            <PhotoCollection @bind-Value="Model!.Photos" />
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Tags
@@ -191,6 +194,24 @@
     </div>
 </div>
 
+<script>
+    window.downloadFileFromStream = async (fileName, contentStreamReference) => {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const blob = new Blob([arrayBuffer]);
+        const url = URL.createObjectURL(blob);
+        const anchorElement = document.createElement('a');
+        anchorElement.href = url;
+
+        if (fileName) {
+            anchorElement.download = fileName;
+        }
+
+        anchorElement.click();
+        anchorElement.remove();
+        URL.revokeObjectURL(url);
+    }
+</script>
+
 @code {
 
     // ---------------- Fields ----------------
@@ -217,9 +238,22 @@
         return Task.CompletedTask;
     }
 
-    private void ValidSubmit()
+    private async Task ValidSubmit()
     {
-        Logger.LogInformation( "Valid!" );
+        if( this.Model is null )
+        {
+            return;
+        }
+
+        FileToDownload file = await this.Model.CreateZipFile();
+        using( Stream fileStream = file.FileStream )
+        {
+            fileStream.Position = 0;
+            using( var streamRef = new DotNetStreamReference( fileStream ) )
+            {
+                await JSRuntime.InvokeVoidAsync( "downloadFileFromStream", file.FileName, streamRef );
+            }
+        }
     }
 
     private void InvalidSubmit()
