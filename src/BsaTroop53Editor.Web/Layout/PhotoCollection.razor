@@ -1,0 +1,138 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        Add Photos
+    </div>
+    <div class="panel-body">
+        @for( int i = 0; ( this.Value is not null ) && ( i < this.Value.Count ); ++i )
+        {
+            PhotoInfo photo = this.Value[i];
+            string altTextClass = "altField" + photo.Id;
+            string captionTextClass = "captionField" + photo.Id;
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @photo.OriginalFileName
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <img class="thumbnailimage" src="data:image/jpeg;base64,@photo.Base64Value" alt="@photo.NewFileName" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <p>
+                                <label for="@altTextClass">
+                                    Alt Text
+                                </label>
+                            </p>
+                            <p>
+                                <InputText
+                                    id="@altTextClass"
+                                    class="form-control"
+                                    @bind-Value="photo.AltText"
+                                    placeholder="Describe what is in this photo."
+                                />
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <label for="@captionTextClass">
+                                    Caption
+                                </label>
+                            </p>
+                            <p>
+                                <InputText
+                                    id="@altTextClass"
+                                    class="form-control"
+                                    @bind-Value="photo.AltText"
+                                    placeholder="Describe what is in this photo."
+                                />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if( this.imageErrors.Any() )
+        {
+            <ul>
+                @foreach( string imageError in this.imageErrors )
+                {
+                    <li>@imageError</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="panel-footer">
+        <InputFile OnChange="LoadFiles" multiple />
+    </div>
+</div>
+
+@code {
+    // ---------------- Fields ----------------
+
+    /// <summary>
+    /// Only allow 50 at a time.
+    /// </summary>
+    private const int maxAllowedFiles = 50;
+
+    /// <summary>
+    /// 5 megabytes is our max.
+    /// </summary>
+    private const long maxFileSize = 5 * 1048576;
+
+    private readonly HashSet<string> imageErrors = new HashSet<string>();
+
+    // ---------------- Properties ----------------
+
+    [Parameter]
+    public List<PhotoInfo>? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<List<PhotoInfo>> ValueChanged{ get; set; }
+
+    // ---------------- Functions ----------------
+
+    private async Task LoadFiles( InputFileChangeEventArgs e )
+    {
+        this.imageErrors.Clear();
+
+        if( this.Value is null )
+        {
+            this.Value = new List<PhotoInfo>();
+        }
+
+        foreach( IBrowserFile file in e.GetMultipleFiles( maxAllowedFiles ) )
+        {
+            if( file.Size > maxFileSize )
+            {
+                imageErrors.Add( $"{file.Name}: File size is too big." );
+                continue;
+            }
+            else if( "image/jpeg".Equals( file.ContentType ) == false )
+            {
+                imageErrors.Add( $"{file.Name} is not a JPEG image, got: {file.ContentType}." );
+                continue;
+            }
+
+            try
+            {
+                string base64String;
+                using( Stream stream = file.OpenReadStream( maxFileSize ) )
+                using( var ms = new MemoryStream() )
+                {
+                    await stream.CopyToAsync( ms );
+
+                    // No way around the ToArray() call; Convert requires it.
+                    base64String = Convert.ToBase64String( ms.ToArray() );
+                }
+                var photo = new PhotoInfo( file.Name, file.Name.ToSnakeCase(), base64String );
+                this.Value.Add( photo );
+            }
+            catch( Exception ex )
+            {
+                imageErrors.Add( $"{file.Name}: {ex.Message}" );
+            }
+        }
+
+        await ValueChanged.InvokeAsync( this.Value );
+    }
+}

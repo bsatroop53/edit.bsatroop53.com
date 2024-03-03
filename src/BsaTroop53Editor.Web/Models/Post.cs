@@ -17,7 +17,6 @@
 //
 
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BsaTroop53Editor.Web.Models;
 
@@ -71,5 +70,5 @@ public class Post
 
     public ICollection<string>? Tags { get; set; } = null;
 
-    public ICollection<string>? Photos { get; set; } = null;
+    public ICollection<PhotoInfo>? Photos { get; set; } = null;
 }

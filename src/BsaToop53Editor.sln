@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsaTroop53Editor.Web", "Bsa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsaTroop53Editor.MarkdownContent", "BsaTroop53Editor.MarkdownContent\BsaTroop53Editor.MarkdownContent.csproj", "{13C1D19E-0B75-4710-A0C9-6CDAE2B2F572}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsaTroop53Editor.Tests", "BsaTroop53Editor.Tests\BsaTroop53Editor.Tests.csproj", "{6A29E658-1A5E-4C4C-81E5-2413C0258EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsaTroop53Editor.Tests", "BsaTroop53Editor.Tests\BsaTroop53Editor.Tests.csproj", "{6A29E658-1A5E-4C4C-81E5-2413C0258EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

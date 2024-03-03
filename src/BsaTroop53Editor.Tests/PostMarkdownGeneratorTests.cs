@@ -71,5 +71,45 @@ One Line Post!
             Assert.AreEqual( expectedFileName, actualFileName );
             Assert.AreEqual( expectedFileContents, actualFileContents );
         }
+
+        [TestMethod]
+        public void NoOptionalStuffPost()
+        {
+            // Setup
+            var uut = new Post
+            {
+                Agreed = true,
+                Category = PostCategory.EagleProjects,
+                IsPostDateAnEstimate = true,
+                Description = "Description",
+                Latitude = null,
+                Longitude = null,
+                Photos = null,
+                PostContents = null,
+                PostDate = new DateOnly( 2024, 12, 13 ),
+                Tags = null,
+                Title = "Test Post"
+            };
+
+            const string expectedFileName = "2024-12-13-TestPost.md";
+
+            const string expectedFileContents =
+@"---
+layout: ""post""
+title: ""Test Post""
+category: ""Eagle Projects""
+description: ""Description""
+is_date_estimate: True
+---
+
+";
+
+            // Act
+            string actualFileContents = uut.ToMarkdownFile( out string actualFileName );
+
+            // Check
+            Assert.AreEqual( expectedFileName, actualFileName );
+            Assert.AreEqual( expectedFileContents, actualFileContents );
+        }
     }
 }
