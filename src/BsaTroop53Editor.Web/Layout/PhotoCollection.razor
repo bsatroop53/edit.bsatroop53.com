@@ -77,7 +77,7 @@
     /// <summary>
     /// 5 megabytes is our max.
     /// </summary>
-    private const long maxFileSize = 5 * 1048576;
+    private static readonly long maxFileSize = 5 * Constants.MegaByte;
 
     private readonly HashSet<string> imageErrors = new HashSet<string>();
 
@@ -124,7 +124,7 @@
                     // No way around the ToArray() call; Convert requires it.
                     base64String = Convert.ToBase64String( ms.ToArray() );
                 }
-                var photo = new PhotoInfo( file.Name, base64String );
+                var photo = new PhotoInfo( file.Name, base64String, file.Size );
                 this.Value.Add( photo );
             }
             catch( Exception ex )

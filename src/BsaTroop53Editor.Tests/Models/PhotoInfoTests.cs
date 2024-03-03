@@ -42,7 +42,7 @@ namespace BsaTroop53Editor.Tests.Models
             string expectedFileNameWithoutExtension
         )
         {
-            var uut = new PhotoInfo( originalFileName, "abcd" );
+            var uut = new PhotoInfo( originalFileName, "abcd", 1000 );
 
             string expectedFileName = $"{expectedFileNameWithoutExtension}_{uut.Id}.jpg";
 

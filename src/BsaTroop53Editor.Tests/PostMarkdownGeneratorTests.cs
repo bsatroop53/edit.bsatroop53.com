@@ -85,7 +85,7 @@ One Line Post!
                 Description = "Some Post",
                 Photos = new List<PhotoInfo>
                 {
-                    new PhotoInfo( "some file", "abcef" )
+                    new PhotoInfo( "some file", "abcef", 1000 )
                 },
                 PostContents = $"Two{Environment.NewLine}Line Post!",
                 PostDate = new DateOnly( 2024, 3, 2 ),

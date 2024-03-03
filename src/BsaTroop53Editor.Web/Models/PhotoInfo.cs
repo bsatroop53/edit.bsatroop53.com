@@ -26,7 +26,7 @@ namespace BsaTroop53Editor.Web.Models
 
         // ---------------- Constructor ----------------
 
-        public PhotoInfo( string orginalFileName, string base64Value )
+        public PhotoInfo( string orginalFileName, string base64Value , long fileSize )
         {
             this.Id = ++nextId;
 
@@ -36,6 +36,7 @@ namespace BsaTroop53Editor.Web.Models
                 $"{Path.GetFileNameWithoutExtension( this.OriginalFileName.ToFileName() )}_{this.Id}.jpg";
            
             this.Base64Value = base64Value;
+            this.FileSize = fileSize;
         }
 
         // ---------------- Properties ----------------
@@ -48,8 +49,26 @@ namespace BsaTroop53Editor.Web.Models
 
         public string Base64Value { get; }
 
+        public long FileSize { get; }
+
         public string? AltText { get; set; } = null;
 
         public string? Caption { get; set; } = null;
+
+        // ---------------- Functions ----------------
+
+        public double GetCompressionSize()
+        {
+            // Thumbnails should only be like 0.5MB
+            // at most.
+            double maxSize = 0.5 * Constants.MegaByte;
+
+            if( this.FileSize <= maxSize )
+            {
+                return 0.99;
+            }
+
+            return Math.Max( 0.65, maxSize / this.FileSize );
+        }
     }
 }
