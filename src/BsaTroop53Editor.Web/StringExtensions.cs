@@ -25,13 +25,13 @@ namespace BsaTroop53Editor.Web
         // ---------------- Fields ----------------
 
         private static readonly Regex whitespaceRegex = new Regex(
-            @"\s+",
+            @"[^\w-\.]",
             RegexOptions.Compiled | RegexOptions.ExplicitCapture
         );
 
         // ---------------- Functions ----------------
 
-        public static string ToSnakeCase( this string str )
+        public static string ToFileName( this string str )
         {
             str = str.ToLower();
             str = whitespaceRegex.Replace( str, "_" );

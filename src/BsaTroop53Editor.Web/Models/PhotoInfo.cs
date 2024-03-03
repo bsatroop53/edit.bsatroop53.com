@@ -26,12 +26,15 @@ namespace BsaTroop53Editor.Web.Models
 
         // ---------------- Constructor ----------------
 
-        public PhotoInfo( string orginalFileName, string newFileName, string base64Value )
+        public PhotoInfo( string orginalFileName, string base64Value )
         {
             this.Id = ++nextId;
 
             this.OriginalFileName = orginalFileName;
-            this.NewFileName = newFileName;
+
+            this.NewFileName =
+                $"{Path.GetFileNameWithoutExtension( this.OriginalFileName.ToFileName() )}_{this.Id}.jpg";
+           
             this.Base64Value = base64Value;
         }
 

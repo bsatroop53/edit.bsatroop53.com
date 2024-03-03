@@ -124,7 +124,7 @@
                     // No way around the ToArray() call; Convert requires it.
                     base64String = Convert.ToBase64String( ms.ToArray() );
                 }
-                var photo = new PhotoInfo( file.Name, file.Name.ToSnakeCase(), base64String );
+                var photo = new PhotoInfo( file.Name, base64String );
                 this.Value.Add( photo );
             }
             catch( Exception ex )

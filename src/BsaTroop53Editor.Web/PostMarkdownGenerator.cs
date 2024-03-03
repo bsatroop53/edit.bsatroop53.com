@@ -48,7 +48,7 @@ namespace BsaTroop53Editor.Web
             ArgumentNullException.ThrowIfNull( post.Title, nameof( post.Title ) );
             ArgumentNullException.ThrowIfNull( post.Description, nameof( post.Description ) );
 
-            fileName = GetFileName( post );
+            fileName = GetMarkdownFileName( post );
 
             var fileContents = new StringBuilder();
 
@@ -89,7 +89,7 @@ namespace BsaTroop53Editor.Web
             return fileContents.ToString();
         }
 
-        private static string GetFileName( Post post )
+        private static string GetMarkdownFileName( Post post )
         {
             ArgumentNullException.ThrowIfNull( post.PostDate, nameof( post.PostDate ) );
             ArgumentNullException.ThrowIfNull( post.Title, nameof( post.Title ) );
