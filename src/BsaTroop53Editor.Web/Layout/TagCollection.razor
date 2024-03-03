@@ -4,7 +4,7 @@
             @foreach( string tag in this.Value ?? Array.Empty<string>() )
             {
                 <li>
-                    @tag <button @onclick="() => this.RemoveTag(tag)">X</button>
+                    @tag <button type="button" @onclick="() => this.RemoveTag(tag)">X</button>
                 </li>
             }
         </ul>
@@ -17,7 +17,7 @@
         />
     </p>
     <p>
-        <button class="btn btn-success" @onclick="AddTagEvent">Add Tag</button>
+        <button type="button" class="btn btn-success" @onclick="AddTagEvent">Add Tag</button>
     </p>
 </div>
 
