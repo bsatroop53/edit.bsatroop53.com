@@ -1,0 +1,125 @@
+@Library( "X13JenkinsLib" )_
+
+pipeline
+{
+    agent
+    {
+        label "master"
+    }
+    environment
+    {
+        DOTNET_CLI_TELEMETRY_OPTOUT = 'true'
+        DOTNET_NOLOGO = 'true'
+    }
+    options
+    {
+        skipDefaultCheckout( true );
+    }
+    stages
+    {
+        stage( 'clean' )
+        {
+            steps
+            {
+                cleanWs();
+            }
+        }
+        stage( 'checkout' )
+        {
+            steps
+            {
+                checkout scm;                  
+            }
+        }
+
+        stage( 'In Docker' )
+        {
+            agent
+            {
+                docker
+                {
+                    image 'mcr.microsoft.com/dotnet/sdk:8.0'
+                    args "-e HOME='${env.WORKSPACE}'"
+                    reuseNode true
+                }
+            }
+            stages
+            {           
+                stage( 'build' )
+                {
+                    steps
+                    {
+                        sh './checkout/devops.sh --target=build'
+                    }
+                }
+
+                stage( 'Test' )
+                {
+                    steps
+                    {
+                        sh './checkout/devops.sh --target=run_tests'
+                    }
+                    post
+                    {
+                        always
+                        {
+                            X13ParseMsTestResults(
+                                filePattern: "checkout/TestResults/BsaTroop53Editor.Tests/*.xml",
+                                abortOnFail: true
+                            );
+                        }
+                    }
+                }
+
+                stage( 'Publish' )
+                {
+                    steps
+                    {
+                        sh './checkout/devops.sh --target=publish'
+                    }
+                }
+            }
+        }
+    
+        stage( 'deploy' )
+        {
+            steps
+            {
+                withCredentials(
+                    [sshUserPrivateKey(
+                        credentialsId: "shendrick.net",
+                        usernameVariable: "SSHUSER",
+                        keyFileVariable: "WEBSITE_KEY" // <- Note: WEBSITE_KEY must be in all quotes below, or rsync won't work if the path has whitespace.
+                    )]
+                )
+                {
+                    script
+                    {
+                        String verbose = "-v"; // Make "-v" for verbose mode.
+                        String sshOptions = "-o BatchMode=yes -o StrictHostKeyChecking=accept-new -i \\\"${WEBSITE_KEY}\\\"";
+                        sh "cd ./checkout/dist/files/wwwroot && rsync --rsh=\"ssh ${verbose} ${sshOptions}\" -az --delete --exclude \".well-known\" ./ ${EDIT_BSA_TROOP53_USER}@edit.bsatroop53.com:edit.bsatroop53.com";
+                    }
+                }
+            }
+        }
+    }
+    post
+    {
+        fixed
+        {
+            X13SendToTelegramWithCredentials(
+                message: "${BUILD_TAG} has been fixed!  See: ${BUILD_URL}",
+                botCredsId: "telegram_bot",
+                chatCredsId: "telegram_chat_id"
+            );
+        }
+        failure
+        {
+            X13SendToTelegramWithCredentials(
+                message: "${BUILD_TAG} has failed.  See: ${BUILD_URL}",
+                botCredsId: "telegram_bot",
+                chatCredsId: "telegram_chat_id"
+            );
+        }
+    }
+}
