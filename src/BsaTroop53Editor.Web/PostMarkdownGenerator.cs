@@ -68,7 +68,11 @@ namespace BsaTroop53Editor.Web
             }
             fileContents.AppendLine( @$"is_date_estimate: {post.IsPostDateAnEstimate}" );
 
-            if( ( post.Latitude is not null ) && ( post.Longitude is not null ) )
+            if(
+                ( post.Category == PostCategory.EagleProjects ) &&
+                ( post.Latitude is not null ) &&
+                ( post.Longitude is not null )
+            )
             {
                 fileContents.AppendLine( $"latitude: {post.Latitude}" );
                 fileContents.AppendLine( $"longitude: {post.Longitude}" );

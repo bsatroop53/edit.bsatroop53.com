@@ -34,7 +34,7 @@ namespace BsaTroop53Editor.Tests
             {
                 Agreed = true,
                 Author = "Seth Hendrick",
-                Category = PostCategory.PressReleases,
+                Category = PostCategory.EagleProjects,
                 IsPostDateAnEstimate = false,
                 Description = "Some Post",
                 Latitude = 42.52742200970382,
@@ -53,7 +53,7 @@ namespace BsaTroop53Editor.Tests
 layout: ""post""
 title: ""Test Post""
 author: ""Seth Hendrick""
-category: ""Press Releases""
+category: ""Eagle Projects""
 description: ""Some Post""
 tags: [""tag"", ""tag with space"", ""tag with \""quote""]
 is_date_estimate: False
@@ -73,13 +73,59 @@ One Line Post!
         }
 
         [TestMethod]
+        public void PhotosPost()
+        {
+            // Setup
+            var uut = new Post
+            {
+                Agreed = true,
+                Author = "Seth Hendrick",
+                Category = PostCategory.EagleProjects,
+                IsPostDateAnEstimate = false,
+                Description = "Some Post",
+                Photos = new List<PhotoInfo>
+                {
+                    new PhotoInfo( "some file", "new file", "abcef" )
+                },
+                PostContents = $"Two{Environment.NewLine}Line Post!",
+                PostDate = new DateOnly( 2024, 3, 2 ),
+                Tags = new string[] { "tag", "tag with space", @"tag with ""quote" },
+                Title = "Test Post"
+            };
+
+            const string expectedFileName = "2024-03-02-TestPost.md";
+
+            const string expectedFileContents =
+@"---
+layout: ""imagegallerypost2""
+title: ""Test Post""
+author: ""Seth Hendrick""
+category: ""Eagle Projects""
+description: ""Some Post""
+tags: [""tag"", ""tag with space"", ""tag with \""quote""]
+is_date_estimate: False
+---
+
+Two
+Line Post!
+";
+
+            // Act
+            string actualFileContents = uut.ToMarkdownFile( out string actualFileName );
+
+            // Check
+            Assert.AreEqual( expectedFileName, actualFileName );
+            Assert.AreEqual( expectedFileContents, actualFileContents );
+        }
+
+        [TestMethod]
         public void NoOptionalStuffPost()
         {
             // Setup
             var uut = new Post
             {
                 Agreed = true,
-                Category = PostCategory.EagleProjects,
+                Category = PostCategory.PressReleases,
                 IsPostDateAnEstimate = true,
                 Description = "Description",
                 Latitude = null,
@@ -97,7 +143,50 @@ One Line Post!
 @"---
 layout: ""post""
 title: ""Test Post""
-category: ""Eagle Projects""
+category: ""Press Releases""
+description: ""Description""
+is_date_estimate: True
+---
+
+";
+
+            // Act
+            string actualFileContents = uut.ToMarkdownFile( out string actualFileName );
+
+            // Check
+            Assert.AreEqual( expectedFileName, actualFileName );
+            Assert.AreEqual( expectedFileContents, actualFileContents );
+        }
+
+        /// <summary>
+        /// Lat/Long should not appear unless its an eagle project.
+        /// </summary>
+        [TestMethod]
+        public void IgnoreCoordinatesIfNotEagleProject()
+        {
+            // Setup
+            var uut = new Post
+            {
+                Agreed = true,
+                Category = PostCategory.PressReleases,
+                IsPostDateAnEstimate = true,
+                Description = "Description",
+                Latitude = 30,
+                Longitude = 0,
+                Photos = null,
+                PostContents = null,
+                PostDate = new DateOnly( 2024, 12, 13 ),
+                Tags = null,
+                Title = "Test Post"
+            };
+
+            const string expectedFileName = "2024-12-13-TestPost.md";
+
+            const string expectedFileContents =
+@"---
+layout: ""post""
+title: ""Test Post""
+category: ""Press Releases""
 description: ""Description""
 is_date_estimate: True
 ---
