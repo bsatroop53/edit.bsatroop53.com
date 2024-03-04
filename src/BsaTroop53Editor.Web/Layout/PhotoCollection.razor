@@ -9,8 +9,19 @@
             string altTextClass = "altField" + photo.Id;
             string captionTextClass = "captionField" + photo.Id;
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    @photo.OriginalFileName
+                <div class="panel-heading" style="display: flex; justify-content: space-between;">
+                    <span>@photo.OriginalFileName</span>
+                    <span>
+                        @if( i < ( this.Value.Count - 1 ) )
+                        {
+                            <button type="button" class="btn btn-default" @onclick="()=>MoveDown( photo )">↓</button>
+                        }
+                        @if( i > 0 )
+                        {
+                            <button type="button" class="btn btn-default" @onclick="()=>MoveUp( photo )">↑</button>
+                        }
+                        <button type="button" class="btn btn-danger" @onclick="()=>RemovePhoto( photo )">X</button>
+                    </span>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-6">
@@ -134,5 +145,62 @@
         }
 
         await ValueChanged.InvokeAsync( this.Value );
+    }
+
+    private async Task MoveDown( PhotoInfo photo )
+    {
+        if( this.Value is null )
+        {
+            return;
+        }
+
+        int index = this.Value.IndexOf( photo );
+        int indexToSwap = index + 1;
+
+        if( indexToSwap > this.Value.Count )
+        {
+            return;
+        }
+
+        PhotoInfo photoToSwap = this.Value[indexToSwap];
+        this.Value[indexToSwap] = photo;
+        this.Value[index] = photoToSwap;
+
+        await ValueChanged.InvokeAsync( this.Value );
+    }
+
+    private async Task MoveUp( PhotoInfo photo )
+    {
+        if( this.Value is null )
+        {
+            return;
+        }
+
+        int index = this.Value.IndexOf( photo );
+        int indexToSwap = index - 1;
+
+        if( indexToSwap < 0 )
+        {
+            return;
+        }
+
+        PhotoInfo photoToSwap = this.Value[indexToSwap];
+        this.Value[indexToSwap] = photo;
+        this.Value[index] = photoToSwap;
+
+        await ValueChanged.InvokeAsync( this.Value );
+    }
+
+    private async Task RemovePhoto( PhotoInfo photo )
+    {
+        if( this.Value is null )
+        {
+            return;
+        }
+
+        if( this.Value.Remove( photo ) )
+        {
+            await ValueChanged.InvokeAsync( this.Value );
+        }
     }
 }
