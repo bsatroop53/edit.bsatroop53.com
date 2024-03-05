@@ -104,6 +104,7 @@ category: ""Eagle Projects""
 description: ""Some Post""
 tags: [""tag"", ""tag with space"", ""tag with \""quote""]
 is_date_estimate: False
+image_gallery: ""_gallerydata/test_post.xml""
 ---
 
 Two
