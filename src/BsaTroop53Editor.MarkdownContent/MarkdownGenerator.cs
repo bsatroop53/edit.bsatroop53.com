@@ -62,6 +62,10 @@ internal static partial class MarkdownContent
         privacyHtml =
 @""{ConvertMarkdownAsHtml( "PrivacyPolicy.md" )}
 "";
+
+        releaseNotesHtml =
+@""{ConvertMarkdownAsHtml( "ReleaseNotes.md" )}
+"";
     }}
 }}
             ";

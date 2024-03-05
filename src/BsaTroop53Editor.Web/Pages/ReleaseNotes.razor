@@ -1,0 +1,15 @@
+﻿@page "/release_notes"
+
+<PageTitle>@title</PageTitle>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-head-line">@title</h1>
+    </div>
+</div>
+
+@MarkdownContent.ReleaseNotesString
+
+@code {
+    private const string title = "Release Notes";
+}

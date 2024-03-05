@@ -24,6 +24,7 @@
   <ItemGroup>
 	<EmbeddedResource Include="..\..\License.md" Link="Content\License.md" />
 	<EmbeddedResource Include="..\..\Credits.md" Link="Content\Credits.md" />
+	<EmbeddedResource Include="..\..\ReleaseNotes.md" Link="Content\ReleaseNotes.md" />
   </ItemGroup>
 
   <ItemGroup>
