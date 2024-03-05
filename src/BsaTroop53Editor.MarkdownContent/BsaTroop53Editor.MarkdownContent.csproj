@@ -23,12 +23,13 @@
 
   <ItemGroup>
 	<EmbeddedResource Include="..\..\License.md" Link="Content\License.md" />
-	<EmbeddedResource Include="Content\FAQ.md" />
+	<EmbeddedResource Include="..\..\Credits.md" Link="Content\Credits.md" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Content\Home.md" />
     <EmbeddedResource Include="Content\PrivacyPolicy.md" />
+	<EmbeddedResource Include="Content\FAQ.md" />
   </ItemGroup>
 
   <PropertyGroup>
