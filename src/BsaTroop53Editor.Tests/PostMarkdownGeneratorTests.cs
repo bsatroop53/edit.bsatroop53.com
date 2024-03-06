@@ -42,7 +42,7 @@ namespace BsaTroop53Editor.Tests
                 Photos = null,
                 PostContents = "One Line Post!",
                 PostDate = new DateOnly( 2024, 3, 2 ),
-                Tags = new string[] {"tag", "tag with space", @"tag with ""quote" },
+                Tags = new string[] { "beta", "alpha", "delta" },
                 Title = "Test Post"
             };
 
@@ -55,7 +55,7 @@ title: ""Test Post""
 author: ""Seth Hendrick""
 category: ""Eagle Projects""
 description: ""Some Post""
-tags: [""tag"", ""tag with space"", ""tag with \""quote""]
+tags: [""alpha"", ""beta"", ""delta""]
 is_date_estimate: False
 latitude: 42.52742200970382
 longitude: -73.75677351300253
@@ -102,7 +102,7 @@ title: ""Test Post""
 author: ""Seth Hendrick""
 category: ""Eagle Projects""
 description: ""Some Post""
-tags: [""tag"", ""tag with space"", ""tag with \""quote""]
+tags: [""tag"", ""tag with \""quote"", ""tag with space""]
 is_date_estimate: False
 image_gallery: ""_gallerydata/test_post.xml""
 ---
