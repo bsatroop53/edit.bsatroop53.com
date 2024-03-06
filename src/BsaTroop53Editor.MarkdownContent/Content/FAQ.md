@@ -1,4 +1,4 @@
-## Frequency Asked Questions
+## Frequently Asked Questions
 
 ### An event took place over multiple days, which should I put as the "Post Date"?
 
@@ -12,6 +12,44 @@ That is mostly up to you, the author of the post.  But, here are some recommenda
 ### I don't know what the date of an event is?
 
 * Give it your best guess, and check the "This date is an estimate" checkbox.  When the post goes live, it will say the date is an estimate.
+
+### I'm not posting about an outing or event, what do I put as the post date?
+
+If you're posting something such as scout skills, recipes, or anything that isn't covering an event that happened on a specific date, just use today's date to show when the post was created.
+
+### Which category should I put my post in?
+
+These are the current recommendations of the type of post to put in each category:
+
+#### Outings
+
+* Anytime the troop gets together and does something that does not fall under any other category can fall under this.
+* Highway cleanups, memorial day parades, or day hikes could all fall under this.
+* If there was a "generic" category, this would be the closest thing to it.
+
+#### Recipes
+
+* Any recipes that can be used for camping, a hike, or anything related to scouting.
+
+#### Scout Skills
+
+* Tips on skills a scout should know such as knot tying, first aid, etc.
+
+#### Camping Trips
+
+* Posts that show recent camping trips.
+
+#### Eagle Projects
+
+* Posts showing off a scout's Eagle project.
+
+#### Press Releases
+
+Whenever something major occurs that the media would be interested in picking up should go under here.  This includes, but is not limited to:
+
+* When a scout completes their Eagle broad of review.
+* When a scout or scouts do something unique that is newsworthy.
+* An upcoming troop event where the community is invited to.
 
 ### What is "Markdown"?
 
@@ -77,3 +115,7 @@ In your email, make a note of this, and suggest a new category.  If it fits the 
 ### Does the form save my work for me?
 
 Not at the moment, maybe in the future.
+
+### I'm good to go, how do I create a post?
+
+Click the link below, or hit the "Editor" button in the navigation bar.

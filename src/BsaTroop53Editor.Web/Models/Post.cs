@@ -57,7 +57,7 @@ public class Post
     public double? Longitude { get; set; }
 
     [Required]
-    public PostCategory Category { get; set; } = PostCategory.News;
+    public PostCategory Category { get; set; } = PostCategory.Outings;
 
     /// <remarks>
     /// Post contents can be empty if there is at least one photo.

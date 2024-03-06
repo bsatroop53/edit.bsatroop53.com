@@ -20,9 +20,11 @@ namespace BsaTroop53Editor.Web.Models;
 
 public enum PostCategory
 {
-    News,
+    Outings,
 
-    Events,
+    Recipes,
+
+    ScoutSkills,
 
     CampingTrips,
 
@@ -37,8 +39,9 @@ public static class PostCategoryExtensions
     {
         return postCategory switch
         {
-            PostCategory.News => "News",
-            PostCategory.Events => "Events",
+            PostCategory.Outings => "Outings",
+            PostCategory.Recipes => "Recipes",
+            PostCategory.ScoutSkills => "Scout Skills",
             PostCategory.CampingTrips => "Camping Trips",
             PostCategory.EagleProjects => "Eagle Projects",
             PostCategory.PressReleases => "Press Releases",
