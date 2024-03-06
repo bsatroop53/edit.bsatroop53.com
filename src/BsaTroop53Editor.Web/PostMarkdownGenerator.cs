@@ -124,7 +124,7 @@ namespace BsaTroop53Editor.Web
         {
             var tagBuilder = new StringBuilder();
             tagBuilder.Append( "tags: [" );
-            foreach( string tag in post.Tags ?? Array.Empty<string>() )
+            foreach( string tag in ( post.Tags ?? Array.Empty<string>() ).OrderBy( t => t ) )
             { 
                 tagBuilder.Append( $@"""{EscapeYaml( tag )}"", " );
             }
