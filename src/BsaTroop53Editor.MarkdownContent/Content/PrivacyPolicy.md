@@ -66,7 +66,7 @@ We don't collect data that can be tied to an individual, so there's nothing to p
 
 There's no data *to* breach.
 This site is a static website, everything is out in the open.
-You can even view the source code here: [https://github.com/xforever1313/edit.bsatroop53.com](https://github.com/xforever1313/edit.bsatroop53.com)
+You can even view the source code here: [https://github.com/bsatroop53/edit.bsatroop53.com](https://github.com/bsatroop53/edit.bsatroop53.com)
 
 ### What third parties we receive data from
 
