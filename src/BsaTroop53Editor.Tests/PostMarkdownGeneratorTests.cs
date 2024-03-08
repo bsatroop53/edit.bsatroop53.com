@@ -126,7 +126,7 @@ Line Post!
             var uut = new Post
             {
                 Agreed = true,
-                Category = PostCategory.PressReleases,
+                Category = PostCategory.News,
                 IsPostDateAnEstimate = true,
                 Description = "Description",
                 Latitude = null,
@@ -144,7 +144,7 @@ Line Post!
 @"---
 layout: ""post""
 title: ""Test Post""
-category: ""Press Releases""
+category: ""News""
 description: ""Description""
 is_date_estimate: True
 ---
@@ -169,7 +169,7 @@ is_date_estimate: True
             var uut = new Post
             {
                 Agreed = true,
-                Category = PostCategory.PressReleases,
+                Category = PostCategory.News,
                 IsPostDateAnEstimate = true,
                 Description = "Description",
                 Latitude = 30,
@@ -187,7 +187,7 @@ is_date_estimate: True
 @"---
 layout: ""post""
 title: ""Test Post""
-category: ""Press Releases""
+category: ""News""
 description: ""Description""
 is_date_estimate: True
 ---

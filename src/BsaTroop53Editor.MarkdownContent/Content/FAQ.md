@@ -43,13 +43,12 @@ These are the current recommendations of the type of post to put in each categor
 
 * Posts showing off a scout's Eagle project.
 
-#### Press Releases
+#### News
 
-Whenever something major occurs that the media would be interested in picking up should go under here.  This includes, but is not limited to:
-
-* When a scout completes their Eagle broad of review.
-* When a scout or scouts do something unique that is newsworthy.
-* An upcoming troop event where the community is invited to.
+* Whenever something major occurs that people or the media would be interested in should go under here.  This includes, but is not limited to:
+  * When a scout completes their Eagle broad of review.
+  * When a scout or scouts do something unique that is newsworthy.
+  * An upcoming troop event where the community is invited to.
 
 ### What is "Markdown"?
 
@@ -115,6 +114,10 @@ In your email, make a note of this, and suggest a new category.  If it fits the 
 ### Does the form save my work for me?
 
 Not at the moment, maybe in the future.
+
+### Something broke!  How do I report it?
+
+Send an email to <admin@bsatroop53.com>, and describe the issue you are seeing.
 
 ### I'm good to go, how do I create a post?
 

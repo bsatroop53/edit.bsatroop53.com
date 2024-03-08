@@ -30,7 +30,7 @@ public enum PostCategory
 
     EagleProjects,
 
-    PressReleases
+    News
 }
 
 public static class PostCategoryExtensions
@@ -44,7 +44,7 @@ public static class PostCategoryExtensions
             PostCategory.ScoutSkills => "Scout Skills",
             PostCategory.CampingTrips => "Camping Trips",
             PostCategory.EagleProjects => "Eagle Projects",
-            PostCategory.PressReleases => "Press Releases",
+            PostCategory.News => "News",
             _ => throw new NotImplementedException( $"Have not implemented {postCategory}." ),
         };
     }
