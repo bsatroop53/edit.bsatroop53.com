@@ -1,3 +1,13 @@
+## Version 1.1.0
+
+### Changes
+
+* Added "Assorted Photos" editor.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 1.0.1
 
 ### Changes
