@@ -1,5 +1,13 @@
 ## Frequently Asked Questions
 
+### Should I use the Post Editor or the Assorted Photos Editor?
+
+The post editor creates an entirely new post.  The assorted photos editor appends photos to an already existing post that contains assorted photos for a specific year.
+
+If you have a series of photos that can be categorized into a specific troop event, please use the post editor.  Please use the post editor even if there's only one photo from that event (others may have photos they wish to add later, and its easier to have it be a separate post rather than moving photos around).
+
+The assorted photos editor should only be used for adding photos to the website that are not easily tied to a specific troop event.  This can include photos from troop meetings or a photo of a troop activity where the details about the activity are unknown or lost to time.
+
 ### An event took place over multiple days, which should I put as the "Post Date"?
 
 That is mostly up to you, the author of the post.  But, here are some recommendations:

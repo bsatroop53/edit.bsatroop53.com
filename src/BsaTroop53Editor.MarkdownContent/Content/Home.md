@@ -6,7 +6,7 @@ This website is used to help create posts for [bsatroop53.com](https://bsatroop5
 
 * Read the Contributor Guidelines below.
 * If it is your first time here, consider reading the [help](/help) page first.
-* Click [Editor](/editor) on the sidebar, or on the "Create Post" link below.
+* Click [Post Editor](/editor) or [Assorted Photos Editor](/photo-editor) on the sidebar, or on the "Create Post" link below.
 * Fill out the form that appears.
 * _Do not navigate away from the form until you are done, otherwise you may lose data._
 * Hit "Save".

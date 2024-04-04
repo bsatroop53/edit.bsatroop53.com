@@ -1,0 +1,182 @@
+@page "/photo-editor"
+@inject ILogger<Post> Logger
+
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<PageTitle>@title</PageTitle>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-head-line">@title</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            This form is for submitting photos that do not neatly fit neatly into a specific troop
+            event.  This can include meetings, small outings that do not require a specific post,
+            or photo is from an unknown event, but the year is known.
+        </p>
+        <p>
+            <em>
+                If photos can easily be categorized into a specific troop event,
+                please use the <NavLink href="/editor">post editor</NavLink> instead.
+            </em>
+        </p>
+        <p>
+            For this form, only include photos that are within the same year.
+            If photos are spread across multiple years, please fill out this form multiple times,
+            once per year.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <EditForm Model="Model" FormName="AssortedPhotosForm" OnValidSubmit="@ValidSubmit" OnInvalidSubmit="@InvalidSubmit">
+            <DataAnnotationsValidator />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Photo Information
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <p>
+                            <label for="postYearField">
+                                Year of photos
+                            </label>
+                        </p>
+                        <p>
+                            <InputNumber
+                                id = "postYearField"
+                                class="form-control"
+                                @bind-Value="Year"
+                                min="1924"
+                                max="@DateTime.Now.Year"
+                            />
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <PhotoCollection @bind-Value="Model!.Photos" />
+            <div class="form-group">
+                <p class="checkbox">
+                    <label for="readGuideCheckBox">
+                        <InputCheckbox id="readGuideCheckBox" @bind-Value="Model!.Agreed"/>
+                        I have read the contribution guidelines, and agree to follow them.
+                    </label>
+                </p>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            <ValidationSummary />
+        </EditForm>
+    </div>
+</div>
+
+<script>
+    window.downloadFileFromStream = async (fileName, contentStreamReference) => {
+        const arrayBuffer = await contentStreamReference.arrayBuffer();
+        const blob = new Blob([arrayBuffer]);
+        const url = URL.createObjectURL(blob);
+        const anchorElement = document.createElement('a');
+        anchorElement.href = url;
+
+        if (fileName) {
+            anchorElement.download = fileName;
+        }
+
+        anchorElement.click();
+        anchorElement.remove();
+        URL.revokeObjectURL(url);
+    }
+</script>
+
+@code {
+
+    // ---------------- Fields ----------------
+
+    private const string title = "Assorted Photos Editor";
+
+    private int year = DateTime.Now.Year;
+
+    private EditContext? editContext;
+
+    protected override void OnInitialized()
+    {
+        this.Model = new Post();
+        this.Model.Author = null;
+        this.Model.Category = PostCategory.AssortedPhotos;
+        this.Model.Tags = new string[] { "assorted photos" };
+        this.Model.IsPostDateAnEstimate = false;
+
+        this.Year = DateTime.Now.Year;
+        editContext = new( Model );
+    }
+
+    // ---------------- Properties ----------------
+
+    [SupplyParameterFromForm]
+    private Post? Model { get; set; }
+
+    private int Year
+    {
+        get => this.Model?.PostDate?.Year ?? DateTime.Now.Year;
+        set
+        {
+            this.Model!.PostDate = new DateOnly( value, 1, 1 );
+            this.YearChanged();
+        }
+    }
+
+    // ---------------- Functions ----------------
+
+    Task OnMarkdownValueChanged(string value)
+    {
+        return Task.CompletedTask;
+    }
+
+    private void YearChanged()
+    {
+        Post? post = this.Model;
+        if( post is null )
+        {
+            return;
+        }
+
+        post.Description = $"Assorted photos for the year {this.Year}.";
+        post.Title = $"{this.Year} Assorted Photos.";
+        post.PostContents =
+$@"These are assorted photos throughout the year {this.Year} that do not fit into a specific
+event or outing.
+";
+    }
+
+    private async Task ValidSubmit()
+    {
+        if( this.Model is null )
+        {
+            return;
+        }
+
+        FileToDownload file = await this.Model.CreateZipFile();
+        using( Stream fileStream = file.FileStream )
+        {
+            fileStream.Position = 0;
+            using( var streamRef = new DotNetStreamReference( fileStream ) )
+            {
+                await JSRuntime.InvokeVoidAsync( "downloadFileFromStream", file.FileName, streamRef );
+            }
+        }
+    }
+
+    private void InvalidSubmit()
+    {
+        Logger.LogInformation( "Not Valid!" );
+        Logger.LogInformation( Model?.Tags?.FirstOrDefault() ?? "Empty" );
+    }
+}
+
