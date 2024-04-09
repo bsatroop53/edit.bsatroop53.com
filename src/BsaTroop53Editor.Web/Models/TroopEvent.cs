@@ -23,13 +23,19 @@ namespace BsaTroop53Editor.Web.Models
 {
     public class TroopEvent
     {
+        // ---------------- Fields ----------------
+
+        private static uint nextId = 0;
+
         // ---------------- Constructor ----------------
 
         public TroopEvent()
         {
+            this.Id = ++nextId;
         }
 
-        public TroopEvent( CalendarEvent calendarEvent )
+        public TroopEvent( CalendarEvent calendarEvent ) :
+            this()
         {
             this.EventTitle = calendarEvent.Summary;
             this.StartTime = calendarEvent.Start.AsSystemLocal;
@@ -38,12 +44,21 @@ namespace BsaTroop53Editor.Web.Models
             this.Location = calendarEvent.Location;
             this.Description = calendarEvent.Description;
             this.IsEditing = false;
+
+            if( Enum.TryParse( calendarEvent.Group, true, out EventCategory cat ) )
+            {
+                this.Category = cat;
+            }
         }
 
         // ---------------- Properties ----------------
 
+        public uint Id { get; }
+
         [Required]
         public string? EventTitle { get; set; } = null;
+
+        public EventCategory Category { get; set; } = EventCategory.Uncategorized;
 
         [Required]
         public DateTime? StartTime { get; set; } = null;
@@ -58,5 +73,11 @@ namespace BsaTroop53Editor.Web.Models
         public string? Description { get; set; } = null;
 
         public bool IsEditing { get; set; } = false;
+
+        public bool IsDeleted { get; set; } = false;
+
+        // ---------------- Functions ----------------
+
+        public string GetFormId() => $"troopEvent{this.Id}";
     }
 }

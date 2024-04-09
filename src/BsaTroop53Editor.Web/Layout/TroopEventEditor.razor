@@ -1,0 +1,180 @@
+﻿<EditForm Model="this.Value" FormName="@FormName" OnValidSubmit="() => ValidSubmit( this.Value )">
+    <DataAnnotationsValidator />
+    <div class="panel panel-default" id="@FormName">
+        <div class="panel-heading">
+            Editing...
+        </div>
+        <div class="panel-body">
+                <div class="form-group">
+                    @{
+                        string eventTitleIdName = $"eventTitleField_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@eventTitleIdName">
+                            Event Title
+                        </label>
+                    </p>
+                    <p>
+                        <InputText
+                            id="@eventTitleIdName"
+                            class="form-control"
+                            @bind-Value="this.Value!.EventTitle"
+                            placeholder="What is the event?"
+                        />
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string eventCategoryIdName = $"eventCategoryField_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@eventCategoryIdName">
+                            Category - Where does this event fit in best?
+                            <InputSelect id="@eventCategoryIdName" class="form-control" @bind-Value="this.Value!.Category">
+                                <option value="@EventCategory.Uncategorized">@EventCategory.Uncategorized.ToHumanReadableString()</option>
+                                <option value="@EventCategory.Outings">@EventCategory.Outings.ToHumanReadableString()</option>
+                                <option value="@EventCategory.ServiceProjects">@EventCategory.ServiceProjects.ToHumanReadableString()</option>
+                                <option value="@EventCategory.CampingTrips">@EventCategory.CampingTrips.ToHumanReadableString()</option>
+                                <option value="@EventCategory.TroopMeetings">@EventCategory.TroopMeetings.ToHumanReadableString()</option>
+                                <option value="@EventCategory.PatrolMeetings">@EventCategory.PatrolMeetings.ToHumanReadableString()</option>
+                                <option value="@EventCategory.CommitteeMeetings">@EventCategory.CommitteeMeetings.ToHumanReadableString()</option>
+                                <option value="@EventCategory.OtherMeetings">@EventCategory.OtherMeetings.ToHumanReadableString()</option>
+                                <option value="@EventCategory.Deadlines">@EventCategory.Deadlines.ToHumanReadableString()</option>
+                            </InputSelect>
+                        </label>
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string eventLocationFieldName = $"eventLocationField_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@eventLocationFieldName">
+                            Location
+                        </label>
+                    </p>
+                    <p>
+                        <InputText
+                            id="@eventLocationFieldName"
+                            class="form-control"
+                            @bind-Value="this.Value!.Location"
+                            placeholder="Where does the event take place?"
+                        />
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string startingTimeFieldName = $"startTimeField_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@startingTimeFieldName">
+                            Starting Time (assumes New York time)
+                        </label>
+                    </p>
+                    <p>
+                        <InputDate
+                            id="@startingTimeFieldName"
+                            class="form-control"
+                            Type="InputDateType.DateTimeLocal"
+                            @bind-Value="this.Value!.StartTime"
+                        />
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string endingTimeFieldName = $"endTimeField_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@endingTimeFieldName">
+                            Ending Time (assumes New York time)
+                        </label>
+                    </p>
+                    <p>
+                        <InputDate
+                            id="@endingTimeFieldName"
+                            class="form-control"
+                            Type="InputDateType.DateTimeLocal"
+                            @bind-Value="this.Value!.EndTime"
+                        />
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string allDayFieldName = $"allDayEventCheckbox_{this.Value?.Id}";
+                    }
+                    <p class="checkbox">
+                        <label for="@allDayFieldName">
+                            <InputCheckbox id="@allDayFieldName" @bind-Value="this.Value!.IsAllDayEvent" />
+                            All day event (time is ignored).
+                        </label>
+                    </p>
+                </div>
+                <div class="form-group">
+                    @{
+                        string eventDescriptionFieldName = $"eventDescriptionArea_{this.Value?.Id}";
+                    }
+                    <p>
+                        <label for="@eventDescriptionFieldName">
+                            Event Details
+                        </label>
+                    </p>
+                    <div id="@eventDescriptionFieldName">
+                        <MarkdownEditor  @bind-Value="this.Value!.Description" />
+                    </div>
+                </div>
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" @onclick="() => Delete( this.Value )">Delete</button>
+            <ValidationSummary />
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    // ---------------- Properties ----------------
+
+    [Parameter]
+    public TroopEvent? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TroopEvent> ValueChanged { get; set; }
+
+    private EditContext? editContext;
+
+    private string FormName => this.Value?.GetFormId() ?? "OhNo";
+
+    // ---------------- Functions ----------------
+
+    protected override void OnInitialized()
+    {
+        if( this.Value is not null )
+        {
+            this.editContext = new( this.Value );
+        }
+    }
+
+    private async Task ValidSubmit( TroopEvent? e )
+    {
+        if( e is null )
+        {
+            return;
+        }
+
+        e.IsEditing = false;
+        await ValueChanged.InvokeAsync( e );
+    }
+
+    private async Task Delete( TroopEvent? e )
+    {
+        if( e is null )
+        {
+            return;
+        }
+
+        e.IsEditing = false;
+        e.IsDeleted = true;
+        await ValueChanged.InvokeAsync( e );
+    }
+}

@@ -2,20 +2,19 @@
 {
     @foreach( TroopEvent troopEvent in this.Value )
     {
+        TroopEvent localEvent = troopEvent;
+        if( localEvent.IsDeleted )
+        {
+            continue;
+        }
+
         @if( troopEvent.IsEditing )
         {
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                </div>
-                <div class="panel-body">
-                </div>
-                <div class="panel-footer">
-                </div>
-            </div>
+            <TroopEventEditor @bind-Value="localEvent" />
         }
         else
         {
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="@localEvent.GetFormId()">
                 <div class="panel-heading">
                     @troopEvent.EventTitle
                 </div>
@@ -43,6 +42,7 @@
                     }
                 </div>
                 <div class="panel-footer">
+                    <button type="button" class="btn btn-success" @onclick="() => this.OnEdit( localEvent )">Edit</button>
                 </div>
             </div>
         }
@@ -54,7 +54,7 @@
 
     private const string allDayFormat = "dddd MMMM dd, yyyy";
 
-    private const string dayTimeFormat = "dddd MMMM dd, yyyy @ HH mm";
+    private const string dayTimeFormat = "dddd MMMM dd, yyyy @ hh:mm tt";
 
     // ---------------- Properties ----------------
 
@@ -65,4 +65,15 @@
     public EventCallback<List<TroopEvent>> ValueChanged { get; set; }
 
     // ---------------- Functions ----------------
+
+    private async Task OnEdit( TroopEvent? e )
+    {
+        if( e is null )
+        {
+            return;
+        }
+
+        e.IsEditing = true;
+        await this.ValueChanged.InvokeAsync( this.Value );
+    }
 }
