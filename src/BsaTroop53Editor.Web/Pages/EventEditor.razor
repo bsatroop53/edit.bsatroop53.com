@@ -1,0 +1,83 @@
+﻿@page "/event-editor"
+@inject ILogger<Post> Logger
+@inject HttpClient HttpClient;
+
+@using Ical.Net;
+@using Ical.Net.CalendarComponents
+@using Ical.Net.DataTypes
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<PageTitle>@title</PageTitle>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-head-line">@title</h1>
+    </div>
+</div>
+
+@if( string.IsNullOrEmpty( this.errorMessage ) == false )
+{
+    <div class="row">
+        <div class="col-md-12">
+            <p>Error loading calendar, can not edit events:</p>
+            <p>@errorMessage</p>
+        </div>
+    </div>
+}
+else if( this.events is null )
+{
+    <div class="row">
+        <div class="col-md-12">
+            <p>Loading Calendar, please wait...</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <TroopEventCollection @bind-Value="this.events"/>
+        </div>
+    </div>
+}
+
+@code {
+    // ---------------- Fields ----------------
+
+    private const string title = "Event Editor";
+
+    private const string icsUrl = "https://ics.calendarlabs.com/76/e39cd13b/US_Holidays.ics";
+
+    string? errorMessage;
+
+    private List<TroopEvent>? events;
+
+    // ---------------- Constructor ----------------
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync( icsUrl );
+
+            var events = new List<TroopEvent>();
+            using( Stream stream = await response.Content.ReadAsStreamAsync() )
+            {
+                Calendar calendar = Calendar.Load( stream );
+                foreach( CalendarEvent calendarEvent in calendar.Events )
+                {
+                    events.Add( new TroopEvent( calendarEvent ) );
+                }
+            }
+            this.errorMessage = null;
+            this.events = events;
+        }
+        catch( Exception e )
+        {
+            this.errorMessage = e.Message;
+        }
+    }
+
+    // ---------------- Properties ----------------
+}

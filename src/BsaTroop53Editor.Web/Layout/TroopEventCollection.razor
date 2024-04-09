@@ -1,0 +1,68 @@
+﻿@if( this.Value is not null )
+{
+    @foreach( TroopEvent troopEvent in this.Value )
+    {
+        @if( troopEvent.IsEditing )
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @troopEvent.EventTitle
+                </div>
+                <div class="panel-body">
+                    @if( troopEvent.IsAllDayEvent )
+                    {
+                        <p><strong>Start Day: </strong>@troopEvent.StartTime?.ToString( allDayFormat )</p>
+                        <p><strong>End Day: </strong>@troopEvent.EndTime?.ToString( allDayFormat )</p>
+                    }
+                    else
+                    {
+                        <p><strong>Start Time: </strong>@troopEvent.StartTime?.ToString( dayTimeFormat )</p>
+                        <p><strong>End Time: </strong>@troopEvent.EndTime?.ToString( dayTimeFormat )</p>
+                    }
+
+                    @if( troopEvent.Location is not null )
+                    {
+                        <p><strong>Location: </strong> @troopEvent.Location</p>
+                    }
+
+                    @if( troopEvent.Description is not null )
+                    {
+                        <p><strong>Description:</strong></p>
+                        <p>@troopEvent.Description</p>
+                    }
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        }
+    }
+}
+
+@code {
+    // ---------------- Fields ----------------
+
+    private const string allDayFormat = "dddd MMMM dd, yyyy";
+
+    private const string dayTimeFormat = "dddd MMMM dd, yyyy @ HH mm";
+
+    // ---------------- Properties ----------------
+
+    [Parameter]
+    public List<TroopEvent>? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<List<TroopEvent>> ValueChanged { get; set; }
+
+    // ---------------- Functions ----------------
+}
