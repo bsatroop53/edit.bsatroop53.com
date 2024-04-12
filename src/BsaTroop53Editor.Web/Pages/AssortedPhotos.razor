@@ -6,6 +6,16 @@
 
 <PageTitle>@title</PageTitle>
 
+@if( this.previewEnabled )
+{
+    <PostEditorPreview @bind-Value="this.Model" @bind-MarkdownAsHtml="this.PostContentsAsHtml" />
+    <hr />
+    <div>
+        <button type="button" class="btn btn-success" @onclick="()=>TogglePreview( false )">Edit</button>
+    </div>
+}
+else
+{
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-head-line">@title</h1>
@@ -70,12 +80,14 @@
                 </p>
             </div>
             <div>
+                <button id="edit-button" type="button" class="btn btn-success" @onclick="()=>TogglePreview( true )">Preview</button>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
             <ValidationSummary />
         </EditForm>
     </div>
 </div>
+}
 
 <script>
     window.downloadFileFromStream = async (fileName, contentStreamReference) => {
@@ -101,6 +113,8 @@
 
     private const string title = "Assorted Photos Editor";
 
+    private bool previewEnabled = false;
+
     private int year = DateTime.Now.Year;
 
     private EditContext? editContext;
@@ -122,6 +136,25 @@
     [SupplyParameterFromForm]
     private Post? Model { get; set; }
 
+    private MarkupString? PostContentsAsHtml
+    {
+        get
+        {
+            if( this.Model?.PostContents is null )
+            {
+                return null;
+            }
+            else
+            {
+                return (MarkupString)this.Model.PostContents;
+            }
+        }
+        set
+        {
+            // Do nothing, this is really read-only.
+        }
+    }
+
     private int Year
     {
         get => this.Model?.PostDate?.Year ?? DateTime.Now.Year;
@@ -133,11 +166,6 @@
     }
 
     // ---------------- Functions ----------------
-
-    Task OnMarkdownValueChanged(string value)
-    {
-        return Task.CompletedTask;
-    }
 
     private void YearChanged()
     {
@@ -177,6 +205,11 @@ event or outing.
     {
         Logger.LogInformation( "Not Valid!" );
         Logger.LogInformation( Model?.Tags?.FirstOrDefault() ?? "Empty" );
+    }
+
+    private void TogglePreview( bool enable )
+    {
+        this.previewEnabled = enable;
     }
 }
 
