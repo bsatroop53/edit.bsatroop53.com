@@ -1,0 +1,95 @@
+﻿<article id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">@this.Value?.Title</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="postmeta">
+                <div class="col-md-4">
+                    <i class="fa fa-user"></i> @(this.Value?.Author ?? "BSA Troop 53")
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-calendar"></i> @(this.Value?.PostDate?.ToString( "MMM dd yyyy" ) ?? "<Still Required>")
+                    @if( this.Value?.IsPostDateAnEstimate ?? false )
+                    {
+                        <em>(estimated)</em>
+                    }
+                </div>
+                <div class="col-md-4">
+                    Posted In: @this.Value?.Category.ToHumanReadableString()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @this.MarkdownAsHtml
+        </div>
+    </div>
+    @if( this.Value?.Photos?.Any() ?? false )
+    {
+        <p>Click on an image to open the full-size image in a new tab.</p>
+        for( int i = 0; i < this.Value.Photos.Count; )
+        {
+            <div class="row">
+                @for( int j = 0; ( j < 2 ) && ( i < this.Value.Photos.Count ); ++j )
+                {
+                    PhotoInfo imageContext = this.Value.Photos[i];
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <a href="data:image/jpeg;base64,@imageContext.Base64Value" target="_blank">
+                                    <img class="thumbnailimage" src="data:image/jpeg;base64,@imageContext.Base64Value" alt="@imageContext.AltText" />
+                                </a>
+                            </div>
+                            @if( string.IsNullOrWhiteSpace( imageContext.Caption ) == false )
+                            {
+                                <div class="panel-footer">
+                                    @imageContext.Caption
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    ++i;
+                }
+            </div>
+        }
+    }
+    <hr class="post-bottom-hr" />
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Tagged as:</h2>
+            <ul class="tags">
+                @foreach( string tag in this.Value?.Tags ?? Array.Empty<string>() )
+                {
+                    <li>@tag</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <p><em>You are previewing what the post will look like.</em></p>
+            <p><em>To make more changes, scroll down, hit the "Edit" button, and continue to edit.</em></p>
+            <p><em>To save, scroll down, hit the "Edit" button, and then hit "Save".</em></p>
+        </div>
+    </div>
+</article>
+
+@code {
+
+    [Parameter]
+    public Post? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<Post?> ValueChanged{ get; set; }
+
+    [Parameter]
+    public MarkupString? MarkdownAsHtml { get; set; }
+
+    [Parameter]
+    public EventCallback<MarkupString?> MarkdownAsHtmlChanged { get; set; }
+}
