@@ -20,6 +20,6 @@ namespace BsaTroop53Editor.Web
 {
     internal static class VersionInfo
     {
-        internal const string Version = "1.1.0";
+        internal const string Version = "1.2.0";
     }
 }

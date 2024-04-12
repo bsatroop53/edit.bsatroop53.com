@@ -1,3 +1,13 @@
+## Version 1.2.0
+
+### Changes
+
+* Added preview for posts and assorted photos.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 1.1.0
 
 ### Changes
