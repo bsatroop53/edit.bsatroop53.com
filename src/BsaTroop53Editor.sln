@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsaTroop53Editor.Tests", "B
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SethCS", "..\SethCS\SethCS\SethCS.shproj", "{52089274-B9A2-4A47-A221-C321DEE1CE7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibSethCS", "..\SethCS\LibSethCS\LibSethCS.csproj", "{C87432C9-7705-4A42-B2F6-B2DD97334412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibSethCS", "..\SethCS\LibSethCS\LibSethCS.csproj", "{C87432C9-7705-4A42-B2F6-B2DD97334412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +44,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\SethCS\SethCS\SethCS.projitems*{52089274-b9a2-4a47-a221-c321dee1ce7f}*SharedItemsImports = 13
-		..\SethCS\SethCS\SethCS.projitems*{91112ac3-8e75-4d04-96c9-a38ef64ea03b}*SharedItemsImports = 5
+		..\SethCS\SethCS\SethCS.projitems*{c87432c9-7705-4a42-b2f6-b2dd97334412}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

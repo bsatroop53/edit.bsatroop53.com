@@ -17,7 +17,6 @@
 //
 
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BsaTroop53Editor.Web.Models;
 

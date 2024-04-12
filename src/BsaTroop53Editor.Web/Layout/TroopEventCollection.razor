@@ -1,0 +1,79 @@
+﻿@if( this.Value is not null )
+{
+    @foreach( TroopEvent troopEvent in this.Value )
+    {
+        TroopEvent localEvent = troopEvent;
+        if( localEvent.IsDeleted )
+        {
+            continue;
+        }
+
+        @if( troopEvent.IsEditing )
+        {
+            <TroopEventEditor @bind-Value="localEvent" />
+        }
+        else
+        {
+            <div class="panel panel-default" id="@localEvent.GetFormId()">
+                <div class="panel-heading">
+                    @troopEvent.EventTitle
+                </div>
+                <div class="panel-body">
+                    @if( troopEvent.IsAllDayEvent )
+                    {
+                        <p><strong>Start Day: </strong>@troopEvent.StartTime?.ToString( allDayFormat )</p>
+                        <p><strong>End Day: </strong>@troopEvent.EndTime?.ToString( allDayFormat )</p>
+                    }
+                    else
+                    {
+                        <p><strong>Start Time: </strong>@troopEvent.StartTime?.ToString( dayTimeFormat )</p>
+                        <p><strong>End Time: </strong>@troopEvent.EndTime?.ToString( dayTimeFormat )</p>
+                    }
+
+                    @if( troopEvent.Location is not null )
+                    {
+                        <p><strong>Location: </strong> @troopEvent.Location</p>
+                    }
+
+                    @if( troopEvent.Description is not null )
+                    {
+                        <p><strong>Description:</strong></p>
+                        <p>@troopEvent.Description</p>
+                    }
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success" @onclick="() => this.OnEdit( localEvent )">Edit</button>
+                </div>
+            </div>
+        }
+    }
+}
+
+@code {
+    // ---------------- Fields ----------------
+
+    private const string allDayFormat = "dddd MMMM dd, yyyy";
+
+    private const string dayTimeFormat = "dddd MMMM dd, yyyy @ hh:mm tt";
+
+    // ---------------- Properties ----------------
+
+    [Parameter]
+    public List<TroopEvent>? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<List<TroopEvent>> ValueChanged { get; set; }
+
+    // ---------------- Functions ----------------
+
+    private async Task OnEdit( TroopEvent? e )
+    {
+        if( e is null )
+        {
+            return;
+        }
+
+        e.IsEditing = true;
+        await this.ValueChanged.InvokeAsync( this.Value );
+    }
+}
