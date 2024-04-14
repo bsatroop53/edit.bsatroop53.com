@@ -1,3 +1,13 @@
+## Version 1.2.1
+
+### Changes
+
+* Fixed the .zip file not being able to be extracted since we didn't close it.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 1.2.0
 
 ### Changes

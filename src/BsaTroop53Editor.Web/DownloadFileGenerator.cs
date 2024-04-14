@@ -50,13 +50,14 @@ namespace BsaTroop53Editor.Web
             try
             {
                 stream = new MemoryStream();
-                var zipArchive = new ZipArchive( stream, ZipArchiveMode.Create );
-
-                await WriteMarkdownFile( zipArchive, post );
-                await WriteImageXmlFile( zipArchive, post );
-                foreach( PhotoInfo photo in post.Photos ?? new List<PhotoInfo>() )
+                using( var zipArchive = new ZipArchive( stream, ZipArchiveMode.Create, true ) )
                 {
-                    await WriteImage( zipArchive, post, photo );
+                    await WriteMarkdownFile( zipArchive, post );
+                    await WriteImageXmlFile( zipArchive, post );
+                    foreach( PhotoInfo photo in post.Photos ?? new List<PhotoInfo>() )
+                    {
+                        await WriteImage( zipArchive, post, photo );
+                    }
                 }
 
             }
