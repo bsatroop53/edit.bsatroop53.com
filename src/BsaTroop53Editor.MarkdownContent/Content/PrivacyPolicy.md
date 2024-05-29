@@ -20,7 +20,7 @@ x.x.x.x - - [28/Dec/2020:12:46:09 -0800] "GET /robots.txt HTTP/1.1" 404 4394 "-"
 ### Cookies
 
 This website does not produce any additional cookies.
-Any embeded content, however, might.
+Any embedded content, however, might.
 
 ### Embedded content from other websites
 
@@ -46,9 +46,9 @@ IP Addresses can be spoofed, or behind a NAT, so we most likely couldn't tie it 
 
 ### Where we send your data
 
-All information inserted to the form do not get transmitted anywhere, everything stays on the client's web browser.
+All information inserted to the form gets transmitted to the server so a post can be added to the Troop 53 website.  Only information in this form is transmitted.
 
-So, no data is sent anywhere.
+All data in the form will be added to the Troop 53 website.  If you're not comfortable with this, do not use the forms.
 
 ### Contact information
 

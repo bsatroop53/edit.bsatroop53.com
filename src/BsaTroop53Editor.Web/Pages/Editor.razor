@@ -1,4 +1,5 @@
 @page "/editor"
+@inject HttpClient HttpClient;
 @inject ILogger<Post> Logger
 
 @using Microsoft.JSInterop
@@ -202,12 +203,14 @@ else
             <EmailNotice/>
             <div>
                 <button id="edit-button" type="button" class="btn btn-success" @onclick="()=>TogglePreview( true )">Preview</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" disabled="@submitting">@saveButtonText</button>
             </div>
             <ValidationSummary />
         </EditForm>
     </div>
 </div>
+
+<SubmissionStatus @bind-Value="@submitResult" />
 }
 
 <script>
@@ -235,6 +238,12 @@ else
     private const string title = "Post Editor";
 
     private bool previewEnabled = false;
+
+    private string saveButtonText = "Submit";
+
+    private SubmissionResult? submitResult = null;
+
+    private bool submitting = false;
 
     private EditContext? editContext;
 
@@ -284,14 +293,34 @@ else
             return;
         }
 
-        FileToDownload file = await this.Model.CreateZipFile();
-        using( Stream fileStream = file.FileStream )
+        try
         {
-            fileStream.Position = 0;
-            using( var streamRef = new DotNetStreamReference( fileStream ) )
+            this.submitting = true;
+            this.saveButtonText = "Downloading File...";
+
+            FileToDownload file = await this.Model.CreateZipFile();
+            using( Stream fileStream = file.FileStream )
             {
-                await JSRuntime.InvokeVoidAsync( "downloadFileFromStream", file.FileName, streamRef );
+                fileStream.Position = 0;
+                using( var streamRef = new DotNetStreamReference( fileStream, leaveOpen: true ) )
+                {
+                    await JSRuntime.InvokeVoidAsync( "downloadFileFromStream", file.FileName, streamRef );
+                }
+                fileStream.Position = 0;
+
+                this.saveButtonText = "Uploading File...";
+                this.submitResult = await FileUploader.TryUpload( this.HttpClient, file.FileName, fileStream );
             }
+        }
+        catch( Exception e )
+        {
+            this.submitResult = new SubmissionResult( false, e.Message );
+            this.Logger.LogError( e.ToString() );
+        }
+        finally
+        {
+            this.saveButtonText = "Submit";
+            this.submitting = false;
         }
     }
 

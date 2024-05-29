@@ -1,0 +1,41 @@
+@if( this.Value is not null )
+{
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-md-12">
+            @if( this.Value.Success )
+            {
+                <div class="alert alert-success">
+                    <p>
+                        Upload successful!  Please check back in a few days and see if it got uploaded.
+                        In the meantime, hang on to the downloaded .bsat53 file until you see your submission
+                        uploaded just in case you need to submit it again.
+                    </p>
+                    <p>
+                        If you don't see your post get added, please send an email to editor@@bsatroop53.com
+                        in a few days to make sure it was seen.
+                        Remember to include your parent/guardian or adult troop leader on the email if you are under 18-years-old.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <p>
+                        Error when uploading, please email the file to editor@@bsatroop53.com instead.
+                        Remember to include your parent/guardian or adult troop leader on the email if you are under 18-years-old.
+                    </p>
+                    <p><strong>Error Message:</strong> @this.Value.Message</p>
+                </div>
+            }
+            </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public SubmissionResult? Value { get; set; } = null;
+
+    [Parameter]
+    public EventCallback<SubmissionResult> ValueChanged { get; set; }
+}
