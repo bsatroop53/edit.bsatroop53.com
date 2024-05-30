@@ -25,9 +25,9 @@ namespace BsaTroop53Editor.Web
         public async static Task<SubmissionResult> TryUpload( HttpClient client, string fileName, Stream stream )
         {
             #if DEBUG
-            const string url = "http://localhost:9253/Upload/DoUpload";
+            const string url = "http://localhost:9253/Upload";
             #else
-            const string url = "https://upload.bsatroop53.com/Upload/DoUpload";
+            const string url = "https://upload.bsatroop53.com/Upload";
             #endif
 
             using var request = new HttpRequestMessage( HttpMethod.Post, url );
@@ -36,6 +36,7 @@ namespace BsaTroop53Editor.Web
             using var content = new MultipartFormDataContent();
             using var streamContent = new StreamContent( stream );
             content.Add( streamContent, "File", fileName );
+            request.Content = content;
 
             HttpResponseMessage response = await client.SendAsync( request );
             string message = await response.Content.ReadAsStringAsync();
