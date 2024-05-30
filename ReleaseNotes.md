@@ -1,3 +1,13 @@
+## Version 2.0.0
+
+### Changes
+
+* First version to submit files to a server.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 1.2.1
 
 ### Changes

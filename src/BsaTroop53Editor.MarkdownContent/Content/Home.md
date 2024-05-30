@@ -12,12 +12,11 @@ This website is used to help create posts for [bsatroop53.com](https://bsatroop5
 * Fill out the form that appears.
 * _Do not navigate away from the form until you are done, otherwise you may lose data._
 * Hit "Save".
-* A .bsat53 file will be generated and asked to be downloaded.
-  * Hold on to this file until you get a confirmation email that your post has been uploaded, in case it needs to be sent again.
-* Download the file, and email it to <editor@bsatroop53.com>
+* A .bsat53 file will be generated and submitted for review.  A copy will be downloaded to your PC.
+  * Hold on to this downloaded file until you notice your submission added on the website.
+  * In the event of a submission error, please email the downloaded .bsat53 file to <editor@bsatroop53.com>.  If the file is too big to email, upload it to a cloud service such as [Google Drive](https://www.google.com/drive/), [OneDrive](https://onedrive.live.com/), or [DropBox](https://www.dropbox.com/) and email the link to the file instead.
   * If you are under 18, please include your parent, guardian, and/or an adult scout leader on your email via the [CC](https://en.wikipedia.org/wiki/Carbon_copy#Email) field.
-* If the file is too big to email, upload it to a cloud service such as [Google Drive](https://www.google.com/drive/), [OneDrive](https://onedrive.live.com/), or [DropBox](https://www.dropbox.com/) and email the link to the file instead.
-* You'll get an email once the submission gets approved and the changes are live!
+* Your changes should be live in a few days.  If not, reach out via email, it may have gotten missed.
 
 ## Contributor Guidelines
 
