@@ -1,6 +1,7 @@
 @page "/photo-editor"
 @inject HttpClient HttpClient;
 @inject ILogger<Post> Logger
+@inject CodeGenerator CodeGenerator;
 
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
@@ -199,7 +200,7 @@ event or outing.
                 fileStream.Position = 0;
 
                 this.saveButtonText = "Uploading File...";
-                this.submitResult = await FileUploader.TryUpload( this.HttpClient, file.FileName, fileStream );
+                this.submitResult = await FileUploader.TryUpload( this.HttpClient, this.CodeGenerator, file.FileName, fileStream );
             }
         }
         catch( Exception e )

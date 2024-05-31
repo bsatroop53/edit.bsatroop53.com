@@ -32,8 +32,10 @@ namespace BsaTroop53Editor.MarkdownContent
         public void Execute( GeneratorExecutionContext context )
         {
             var buffer = new byte[4];
-            var rng = RandomNumberGenerator.Create();
-            rng.GetBytes( buffer, 0, buffer.Length );
+            using( var rng = RandomNumberGenerator.Create() )
+            {
+                rng.GetBytes( buffer, 0, buffer.Length );
+            }
 
             int seed = BitConverter.ToInt32( buffer, 0 );
 

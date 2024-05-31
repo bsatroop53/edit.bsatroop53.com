@@ -20,9 +20,14 @@ using System.Net.Http.Headers;
 
 namespace BsaTroop53Editor.Web
 {
-    public static class FileUploader
+    internal static class FileUploader
     {
-        public async static Task<SubmissionResult> TryUpload( HttpClient client, string fileName, Stream stream )
+        public async static Task<SubmissionResult> TryUpload(
+            HttpClient client,
+            CodeGenerator codeGenerator,
+            string fileName,
+            Stream stream
+        )
         {
             #if DEBUG
             const string url = "http://localhost:9253/Upload";
@@ -36,6 +41,10 @@ namespace BsaTroop53Editor.Web
             using var content = new MultipartFormDataContent();
             using var streamContent = new StreamContent( stream );
             content.Add( streamContent, "File", fileName );
+
+            using var stringContent = new StringContent( codeGenerator.GetCode() );
+            content.Add( stringContent, "Key" );
+
             request.Content = content;
 
             HttpResponseMessage response = await client.SendAsync( request );
