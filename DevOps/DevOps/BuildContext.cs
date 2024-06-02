@@ -25,10 +25,6 @@ namespace DevOps
 {
     public class BuildContext : FrostingContext
     {
-        // ---------------- Fields ----------------
-
-        internal const string KeySeedFileArg = "key_seed_file";
-
         // ---------------- Constructor ----------------
 
         public BuildContext( ICakeContext context ) :
