@@ -44,12 +44,20 @@ pipeline
                 }
             }
             stages
-            {           
+            {   
+                stage( 'Generate Key Seed' )
+                {
+                    steps
+                    {
+                        sh './checkout/devops.sh --target=generate_key_seed';
+                    }
+                }
+
                 stage( 'build' )
                 {
                     steps
                     {
-                        sh './checkout/devops.sh --target=build'
+                        sh './checkout/devops.sh --target=build';
                     }
                 }
 
@@ -57,7 +65,7 @@ pipeline
                 {
                     steps
                     {
-                        sh './checkout/devops.sh --target=run_tests'
+                        sh './checkout/devops.sh --target=run_tests';
                     }
                     post
                     {
@@ -75,7 +83,16 @@ pipeline
                 {
                     steps
                     {
-                        sh './checkout/devops.sh --target=publish'
+                        sh './checkout/devops.sh --target=publish';
+                    }
+                }
+
+                stage( 'Save Key' )
+                {
+                    steps
+                    {
+                        sh "dotnet run --project=checkout/src/BsaTroop53Editor.KeyWriter/BsaTroop53Editor.KeyWriter.csproj -- \"${pwd()}/bsat53.key\"";
+                        archiveArtifacts 'bsat53.key';
                     }
                 }
             }
