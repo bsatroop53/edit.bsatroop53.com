@@ -16,6 +16,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
+using SethCS.IO;
+
 namespace BsaTroop53Editor.KeyGenerator
 {
     internal sealed partial class KeyGenerator
@@ -25,6 +27,11 @@ namespace BsaTroop53Editor.KeyGenerator
         private readonly List<byte> key;
 
         // ---------------- Constructor ----------------
+
+        public KeyGenerator() :
+            this( GetSeed() )
+        {
+        }
 
         public KeyGenerator( int seed )
         {
@@ -62,6 +69,16 @@ namespace BsaTroop53Editor.KeyGenerator
         public void ClearKey()
         {
             this.key.Clear();
+        }
+
+        private static int GetSeed()
+        {
+            string seedStr = AssemblyResourceReader.ReadStringResource(
+                typeof( KeyGenerator ).Assembly,
+                $"{nameof( BsaTroop53Editor )}.{nameof( BsaTroop53Editor.KeyGenerator )}.Seed.txt"
+            );
+
+            return int.Parse( seedStr );
         }
     }
 }

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\BsaTroop53Editor.SeedGenerator\BsaTroop53Editor.SeedGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	<EmbeddedResource Include="..\..\Seed.txt" Link="Seed.txt">
+	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,10 @@
 	<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 	  <_Parameter1>BsaTroop53Editor.KeyWriter</_Parameter1>
 	</AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\..\SethCS\LibSethCS\LibSethCS.csproj" />
   </ItemGroup>
 
 </Project>

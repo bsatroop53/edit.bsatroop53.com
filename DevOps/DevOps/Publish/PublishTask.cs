@@ -32,9 +32,9 @@ namespace DevOps.Publish
 
         public override bool ShouldRun( BuildContext context )
         {
-            if( context.KeySeedFile is null )
+            if( context.FileExists( context.KeySeedFile ) == false )
             {
-                context.Information( "A key seed file must be specified via command line before publishing." );
+                context.Information( "A key seed file must be generated via the 'generate_key_seed' target before publishing." );
                 return false;
             }
 
@@ -43,11 +43,6 @@ namespace DevOps.Publish
 
         public override void Run( BuildContext context )
         {
-            if( context.KeySeedFile is not null )
-            {
-                context.SetKeySeedEnvironmentVariable();
-            }
-
             context.EnsureDirectoryExists( context.DistFolder );
 
             DirectoryPath looseFilesDir = context.LooseFilesDistFolder;

@@ -28,23 +28,8 @@ namespace DevOps.KeySeed
     {
         // ---------------- Functions ----------------
 
-        public override bool ShouldRun( BuildContext context )
-        {
-            if( context.KeySeedFile is null )
-            {
-                context.Information( 
-                    $"A key seed file must be specified via command line argument '{BuildContext.KeySeedFileArg}' before generating file."
-                );
-                return false;
-            }
-
-            return true;
-        }
-
         public override void Run( BuildContext context )
         {
-            ArgumentNullException.ThrowIfNull( context.KeySeedFile, BuildContext.KeySeedFileArg );
-
             var buffer = new byte[4];
             using( var rng = RandomNumberGenerator.Create() )
             {

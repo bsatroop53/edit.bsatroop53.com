@@ -17,6 +17,8 @@
 //
 
 
+using Cake.Common.Diagnostics;
+using Cake.Common.IO;
 using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.Build;
 using Cake.Frosting;
@@ -28,13 +30,19 @@ namespace DevOps.Build
     {
         // ---------------- Functions ----------------
 
-        public override void Run( BuildContext context )
+        public override bool ShouldRun( BuildContext context )
         {
-            if( context.KeySeedFile is not null )
+            if( context.FileExists( context.KeySeedFile ) == false )
             {
-                context.SetKeySeedEnvironmentVariable();
+                context.Information( "A key seed file must be generated via the 'generate_key_seed' target before building." );
+                return false;
             }
 
+            return true;
+        }
+
+        public override void Run( BuildContext context )
+        {
             var buildOptions = new DotNetBuildSettings
             {
             };

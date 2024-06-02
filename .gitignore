@@ -59,3 +59,4 @@ OpenCover/
 .env
 test.env
 *.db
+Seed.txt
