@@ -28,33 +28,25 @@ namespace BsaTroop53Editor.Web
 
         // ---------------- Constructor ----------------
 
-        public CodeGenerator( int seed )
+        public CodeGenerator()
         {
-            var key = new byte[512];
-
-            var rand = new Random( seed );
-            rand.NextBytes( key );
+            var keyGenerator = new KeyGenerator.KeyGenerator();
 
             this.totp = new Totp(
-                key,
+                keyGenerator.Key.ToArray(),
                 step: 30,
                 mode: OtpHashMode.Sha512,
                 totpSize: 8,
                 timeCorrection: null
             );
 
-            #if DEBUG
-            this.Base64Key = Convert.ToBase64String( key );
-            #endif
+            // Clear key from RAM.
+            // It still is somewhere in RAM in the Totp class,
+            // but it is in one less spot.
+            keyGenerator.ClearKey();
         }
 
         // ---------------- Functions ----------------
-
-        #if DEBUG
-
-        public string Base64Key { get; }
-
-        #endif
 
         public string GetCode()
         {

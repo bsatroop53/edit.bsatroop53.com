@@ -16,6 +16,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 
+using Cake.Common;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Frosting;
@@ -24,6 +25,10 @@ namespace DevOps
 {
     public class BuildContext : FrostingContext
     {
+        // ---------------- Fields ----------------
+
+        internal const string KeySeedFileArg = "key_seed_file";
+
         // ---------------- Constructor ----------------
 
         public BuildContext( ICakeContext context ) :
@@ -37,6 +42,15 @@ namespace DevOps
             this.TestResultsFolder = this.RepoRoot.Combine( "TestResults" );
             this.WebCsProj = this.SrcDir.CombineWithFilePath( "BsaTroop53Editor.Web/BsaTroop53Editor.Web.csproj" );
             this.TestCsProj = this.SrcDir.CombineWithFilePath( "BsaTroop53Editor.Tests/BsaTroop53Editor.Tests.csproj" );
+
+            if( context.HasArgument( KeySeedFileArg ) )
+            {
+                this.KeySeedFile = new FilePath( context.Argument<string>( KeySeedFileArg ) );
+            }
+            else
+            {
+                this.KeySeedFile = null;
+            }
         }
 
         // ---------------- Properties ----------------
@@ -56,5 +70,19 @@ namespace DevOps
         public FilePath WebCsProj { get; }
 
         public FilePath TestCsProj { get; }
+
+        public FilePath? KeySeedFile { get; }
+
+        // ---------------- Functions ----------------
+
+        public void SetKeySeedEnvironmentVariable()
+        {
+            ArgumentNullException.ThrowIfNull( this.KeySeedFile, KeySeedFileArg );
+
+            string fileContents = File.ReadAllText( this.KeySeedFile.FullPath ).Trim();
+            int seed = int.Parse( fileContents );
+
+            System.Environment.SetEnvironmentVariable( "KEY_SEED", seed.ToString() );
+        }
     }
 }

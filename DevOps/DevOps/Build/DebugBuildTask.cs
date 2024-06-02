@@ -30,6 +30,11 @@ namespace DevOps.Build
 
         public override void Run( BuildContext context )
         {
+            if( context.KeySeedFile is not null )
+            {
+                context.SetKeySeedEnvironmentVariable();
+            }
+
             var buildOptions = new DotNetBuildSettings
             {
             };

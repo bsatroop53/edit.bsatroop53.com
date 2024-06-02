@@ -1,4 +1,4 @@
-//
+﻿//
 // BsaTroop53 Editor - A way to create posts for bsatroop53.com
 // Copyright (C) 2024 Seth Hendrick
 // 
@@ -17,42 +17,51 @@
 //
 
 using System;
-using System.IO;
-using System.Reflection;
 using System.Security.Cryptography;
 using Microsoft.CodeAnalysis;
 
-namespace BsaTroop53Editor.MarkdownContent
+namespace BsaTroop53Editor.KeyGenerator
 {
     [Generator]
-    public sealed class CodeGenerator : ISourceGenerator
+    public sealed class SeedGenerator : ISourceGenerator
     {
         // ---------------- Functions ----------------
 
         public void Execute( GeneratorExecutionContext context )
         {
-            var buffer = new byte[4];
-            using( var rng = RandomNumberGenerator.Create() )
+            int seed = 0;
+            string keySeed = Environment.GetEnvironmentVariable( "KEY_SEED" );
+            if( int.TryParse( keySeed, out seed ) == false )
             {
-                rng.GetBytes( buffer, 0, buffer.Length );
+                context.ReportDiagnostic(
+                    Diagnostic.Create(
+                        new DiagnosticDescriptor(
+                            "BSAT53_01",
+                            "No key seed specified.",
+                            "KEY_SEED environment variable not specified, using default seed.",
+                            "Configuration",
+                            DiagnosticSeverity.Warning,
+                            true
+                        ),
+                        null
+                    )
+                );
             }
-
-            int seed = BitConverter.ToInt32( buffer, 0 );
 
             // Find the main method
             var mainMethod = context.Compilation.GetEntryPoint( context.CancellationToken );
 
             string source = $@"
-namespace {nameof( BsaTroop53Editor )}.Web;
-internal sealed partial class CodeGenerator
+namespace {nameof( BsaTroop53Editor )}.KeyGenerator;
+internal sealed partial class KeyGenerator
 {{
-    public CodeGenerator() : this( {seed} )
+    public KeyGenerator() : this( {seed} )
     {{
     }}
 }}
 ";
 
-            context.AddSource( "CodeGenerator.g.cs", source );
+            context.AddSource( "KeyGenerator.g.cs", source );
         }
 
         public void Initialize( GeneratorInitializationContext context )

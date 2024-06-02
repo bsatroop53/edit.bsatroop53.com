@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BsaTroop53Editor.KeyGenerator\BsaTroop53Editor.KeyGenerator.csproj" />
     <ProjectReference Include="..\BsaTroop53Editor.MarkdownContent\BsaTroop53Editor.MarkdownContent.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

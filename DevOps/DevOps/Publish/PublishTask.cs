@@ -20,10 +20,8 @@ using Cake.Common.Diagnostics;
 using Cake.Common.IO;
 using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.Publish;
-using Cake.Common.Tools.MSBuild;
 using Cake.Core.IO;
 using Cake.Frosting;
-using Seth.CakeLib;
 
 namespace DevOps.Publish
 {
@@ -32,8 +30,24 @@ namespace DevOps.Publish
     {
         // ---------------- Functions ----------------
 
+        public override bool ShouldRun( BuildContext context )
+        {
+            if( context.KeySeedFile is null )
+            {
+                context.Information( "A key seed file must be specified via command line before publishing." );
+                return false;
+            }
+
+            return true;
+        }
+
         public override void Run( BuildContext context )
         {
+            if( context.KeySeedFile is not null )
+            {
+                context.SetKeySeedEnvironmentVariable();
+            }
+
             context.EnsureDirectoryExists( context.DistFolder );
 
             DirectoryPath looseFilesDir = context.LooseFilesDistFolder;
