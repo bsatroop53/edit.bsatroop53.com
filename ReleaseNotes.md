@@ -1,3 +1,13 @@
+## Version 2.0.1
+
+### Changes
+
+* Query the server for its time so the client can stay in sync with it.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 2.0.0
 
 ### Changes
