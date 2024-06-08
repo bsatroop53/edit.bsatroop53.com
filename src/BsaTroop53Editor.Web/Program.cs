@@ -24,7 +24,35 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.AddScoped(sp => new CodeGenerator() );
+using var httpClient = new HttpClient { BaseAddress = new Uri( builder.HostEnvironment.BaseAddress ) };
+builder.Services.AddScoped(sp => httpClient);
+
+DateTime? serverTime = await GetServerTime();
+if( serverTime is null )
+{
+    Console.WriteLine( "Can not get server time, must use client time" );
+}
+
+builder.Services.AddScoped( sp => new CodeGenerator( serverTime ) );
 
 await builder.Build().RunAsync();
+
+async Task<DateTime?> GetServerTime()
+{
+    try
+    {
+        HttpResponseMessage response = await httpClient.GetAsync( $"{FileUploader.ServerUrl}/datetime.txt" );
+        string responseString = await response.Content.ReadAsStringAsync();
+
+        if( long.TryParse( responseString, out long ticks ) )
+        {
+            return new DateTime( ticks, DateTimeKind.Utc );
+        }
+
+        return null;
+    }
+    catch( Exception )
+    {
+        return null;
+    }
+}

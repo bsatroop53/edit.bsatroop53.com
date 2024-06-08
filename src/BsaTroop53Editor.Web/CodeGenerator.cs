@@ -28,16 +28,22 @@ namespace BsaTroop53Editor.Web
 
         // ---------------- Constructor ----------------
 
-        public CodeGenerator()
+        public CodeGenerator( DateTime? timeCorrection )
         {
             var keyGenerator = new KeyGenerator.KeyGenerator();
+
+            TimeCorrection? correction = null;
+            if( timeCorrection is not null )
+            {
+                correction = new TimeCorrection( timeCorrection.Value );
+            }
 
             this.totp = new Totp(
                 keyGenerator.Key.ToArray(),
                 step: 30,
                 mode: OtpHashMode.Sha512,
                 totpSize: 8,
-                timeCorrection: null
+                timeCorrection: correction
             );
 
             // Clear key from RAM.

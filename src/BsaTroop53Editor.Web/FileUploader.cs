@@ -22,6 +22,14 @@ namespace BsaTroop53Editor.Web
 {
     internal static class FileUploader
     {
+        #if DEBUG
+        internal const string ServerUrl = "http://localhost:9253";
+        #else
+        internal const string ServerUrl = "https://upload.bsatroop53.com";
+        #endif
+
+        private const string url = $"{ServerUrl}/Upload";
+
         public async static Task<SubmissionResult> TryUpload(
             HttpClient client,
             CodeGenerator codeGenerator,
@@ -29,12 +37,6 @@ namespace BsaTroop53Editor.Web
             Stream stream
         )
         {
-            #if DEBUG
-            const string url = "http://localhost:9253/Upload";
-            #else
-            const string url = "https://upload.bsatroop53.com/Upload";
-            #endif
-
             using var request = new HttpRequestMessage( HttpMethod.Post, url );
             request.Headers.UserAgent.Add( new ProductInfoHeaderValue( "T53_EDITOR_CLIENT", VersionInfo.Version ) );
 
