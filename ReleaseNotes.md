@@ -1,3 +1,14 @@
+## Version 2.0.2
+
+### Changes
+
+* Added "Christmas Tree Sales" as a category.
+* Added privacy guidelines for youth members.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 2.0.1
 
 ### Changes
