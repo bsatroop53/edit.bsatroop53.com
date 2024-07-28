@@ -32,6 +32,8 @@ public enum PostCategory
 
     News,
 
+    ChristmasTreeSales,
+
     AssortedPhotos
 }
 
@@ -48,6 +50,7 @@ public static class PostCategoryExtensions
             PostCategory.EagleProjects => "Eagle Projects",
             PostCategory.News => "News",
             PostCategory.AssortedPhotos => "Assorted Photos",
+            PostCategory.ChristmasTreeSales => "Christmas Tree Sales",
             _ => throw new NotImplementedException( $"Have not implemented {postCategory}." ),
         };
     }

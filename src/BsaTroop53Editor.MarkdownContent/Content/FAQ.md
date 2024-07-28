@@ -58,6 +58,10 @@ These are the current recommendations of the type of post to put in each categor
   * When a scout or scouts do something unique that is newsworthy.
   * An upcoming troop event where the community is invited to.
 
+#### Christmas Tree Sales
+
+* Any posts relating to Troop 53's annual Christmas Tree sales at Maple Hill Trees.
+
 ### What is "Markdown"?
 
 Markdown is a common way to provide formatting for text that eventually gets posted to the web.  Markdown eventually gets converted to html.
