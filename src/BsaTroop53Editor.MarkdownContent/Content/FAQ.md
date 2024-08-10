@@ -115,10 +115,6 @@ Uploading too big of photos _may_ cause the form to crash by having it run out o
 
 No, but the form can only process 50 photos at a single time.  It is possible, however, that adding too many photos to a post could cause the form to crash by running out of memory.  This mainly depends on the sizes of the photos, the web browser, and how much RAM your PC has.
 
-### Can I upload video?
-
-Not directly, video takes up too much storage space.  Please upload to an external video hosting service such as [YouTube](https://www.youtube.com/) or [Vimeo](https://vimeo.com/), and embed the video in the post.
-
 ### My post doesn't fit nicely into one of the categories
 
 In your email, make a note of this, and suggest a new category.  If it fits the website, the new category will be added.
@@ -126,6 +122,37 @@ In your email, make a note of this, and suggest a new category.  If it fits the 
 ### Does the form save my work for me?
 
 Not at the moment, maybe in the future.
+
+### Can I upload video?
+
+Not directly, video takes up too much storage space.  Please upload to an external video hosting service such as [YouTube](https://www.youtube.com/) or [Vimeo](https://vimeo.com/), and embed the video in the post.
+
+### Can I upload a newspaper article in its entirety about the Troop?
+
+It mainly depends on when the newspaper was published, and how it renewed its copyright (if it did so at all).
+
+Generally speaking:
+
+* Any article posted 1928 or earlier is in the public domain, and is free to post.
+* Any article posted between 1928 and 1977 _without_ a copyright notice means it is in the public domain, and is free to post.
+* Any article posted between 1928 and 1963 _with_ a copyright notice but the copyright was _not_ renewed are okay to post.
+* Any article posted between 1978 and March 1, 1989 _without_ a copyright notice _and_ not registered within five years of publication are okay to post.
+* Any article posted March 1, 1989 or after are covered by copyright for 95 years.  DO NOT upload or re-publish these without permission from the copyright holder unless it falls under fair use (see below), or 95 years have passed since its original publish date.
+* _[More Information](https://www.legalgenealogist.com/2012/03/19/copyright-the-newspaper-article/)_
+
+For the third and forth bullets, this website can be used to see a list of copyrights and when they got renewed: [http://onlinebooks.library.upenn.edu/cce/](http://onlinebooks.library.upenn.edu/cce/).
+
+For any articles still under copyright, the safest approach is to contact the copyright holder for permission.  However, if the copyright holder no longer exists (e.g. a newspaper is no longer published), or it not possible to figure out who the copyright holder is, the newspaper article could be posted under "[fair use](https://en.wikipedia.org/wiki/Fair_use)".  There is no golden formula for what qualifies as fair use or not, as it is a case-by-case basis.
+
+The Troop is non-profit, articles are usually fact-based (facts can not be copyrighted), and re-posting a single article from a newspaper probably won't impact a newspaper's bottom line.  All of these factors can make an argument that it is fair use.  However, re-posting a copyrighted work in its entirety may not fall under fair-use.
+
+With that in mind, the guidance is as follows for newspaper articles posted after March 1, 1989:
+
+* If the original newspaper article is still accessible online from the original publisher, seek permission.  It could be argued the Troop website re-posting an article in its entirety could take away clicks from the newspaper's website and decrease their ad revenue, violating fair use.
+* If the original newspaper article is not accessible online (as in, it was only printed in a physical newspaper), and it is mostly made up of facts, it is _probably_ safe to re-post.  Re-posting a decades old article probably isn't going to impact a newspaper's bottom line.  However, if the newspaper that originally published the article still exists, it is recommended to seek permission anyways.
+* If the original newspaper article is not made up of mostly facts, such as an opinion piece, seek permission first.  While facts are not copyrightable, opinions most certainly are.
+
+If permission gets denied, there's nothing to do other than hold on to the article, pass it down through the generations, and wait 95 years after the publish date to post it.
 
 ### Something broke!  How do I report it?
 

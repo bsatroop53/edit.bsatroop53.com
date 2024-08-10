@@ -26,7 +26,7 @@ This website is used to help create posts for [bsatroop53.com](https://bsatroop5
   * Do not include the last names of any current youth in any text on a post.
   * Do not include first _or_ last names in a photo caption, or in a way that can match a name of a current youth to their face.
   * The only exception to these rules is if something big and newsworthy happens where a youth's name will be become public anyways, such as getting Eagle.
-* Respect copyright.  Please only upload photos you have taken yourself or have gotten permission to post.
+* Respect copyright.  Please only upload photos you have taken yourself or have gotten permission to post.  For newspaper articles, please refer to the [help](/help) page for more information about what is and isn't allowed.
 * If you are under 18, please ask your parent's or guardian's permission before submitting content to the website.
 * Remember, the internet is forever.  Once something is posted, assume it will be public until the end-of-time.  If you are not 100% comfortable posting something, don't.
 
