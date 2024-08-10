@@ -1,3 +1,13 @@
+## Version 2.0.3
+
+### Changes
+
+* Added newspaper guidelines.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 2.0.2
 
 ### Changes
