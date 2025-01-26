@@ -24,7 +24,7 @@ namespace BsaTroop53Editor.Web
     {
         // ---------------- Fields ----------------
 
-        private static readonly Regex whitespaceRegex = new Regex(
+        public static readonly Regex WhitespaceRegex = new Regex(
             @"[^\w-\.]",
             RegexOptions.Compiled | RegexOptions.ExplicitCapture
         );
@@ -34,7 +34,7 @@ namespace BsaTroop53Editor.Web
         public static string ToFileName( this string str )
         {
             str = str.ToLower();
-            str = whitespaceRegex.Replace( str, "_" );
+            str = WhitespaceRegex.Replace( str, "_" );
 
             return str;
         }

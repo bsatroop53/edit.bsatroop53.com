@@ -26,10 +26,7 @@ namespace BsaTroop53Editor.Web
     {
         // ---------------- Fields ----------------
 
-        private static readonly Regex whitespaceRegex = new Regex(
-            @"\s+",
-            RegexOptions.Compiled | RegexOptions.ExplicitCapture
-        );
+        private static readonly Regex whitespaceRegex = StringExtensions.WhitespaceRegex;
 
         private static readonly Regex quoteRegex = new Regex(
             @"""",
