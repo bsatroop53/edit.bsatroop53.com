@@ -75,7 +75,11 @@ namespace BsaTroop53Editor.Tests
                 new PhotoInfo( "1930 gerrysipter franklinvandewal jaypaul.jpg", "abcef", 50 )
                 {
                     AltText = "Three scouts.",
-                    Caption = "Patrol Activity - 1930's."
+                    Caption = "Patrol Activity - 1930's.",
+                    Notes = "Some Note",
+                    ActualDate = new DateOnly( 1930, 6, 13 ),
+                    PhotoSameAsPostDate = false,
+                    DateIsEstimate = true
                 },
                 new PhotoInfo( "4apr1931 Newspaper Thurstonpauleagle.jpg", "12345", 2 * Constants.MegaByte )
             };
@@ -91,11 +95,18 @@ $@"<ImageGallery ImageDir=""static/img/galleries/historical_photographs"" Thumbn
   <Image FileName=""1930_gerrysipter_franklinvandewal_jaypaul_{photos[0].Id}.jpg"">
     <Alt>Three scouts.</Alt>
     <Caption>Patrol Activity - 1930's.</Caption>
+    <Notes>Some Note</Notes>
     <ThumbnailScale>0.99</ThumbnailScale>
+    <Date Estimate=""true"">
+      <Year>1930</Year>
+      <Month>6</Month>
+      <Day>13</Day>
+    </Date>
   </Image>
   <Image FileName=""4apr1931_newspaper_thurstonpauleagle_{photos[1].Id}.jpg"">
     <Alt />
     <Caption />
+    <Notes />
     <ThumbnailScale>0.65</ThumbnailScale>
   </Image>
 </ImageGallery>";
