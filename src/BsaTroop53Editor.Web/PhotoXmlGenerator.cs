@@ -18,6 +18,7 @@
 
 using System.Xml.Linq;
 using BsaTroop53Editor.Web.Models;
+using SethCS.Extensions;
 
 namespace BsaTroop53Editor.Web
 {
@@ -63,6 +64,19 @@ namespace BsaTroop53Editor.Web
                     new XElement( "Caption", photo.Caption ),
                     new XElement( "ThumbnailScale", photo.GetCompressionSize() )
                 );
+
+                if( ( photo.PhotoSameAsPostDate == false ) && ( photo.ActualDate is not null ) )
+                {
+                    imageElement.Add(
+                        new XElement(
+                            "Date",
+                            new XElement( "year", photo.ActualDate.Value.Year ),
+                            new XElement( "month", photo.ActualDate.Value.Month ),
+                            new XElement( "day", photo.ActualDate.Value.Day ),
+                            new XAttribute( "estimate", photo.DateIsEstimate )
+                        )
+                    );
+                }
 
                 imageElement.Add( new XAttribute( "FileName", photo.NewFileName ) );
 

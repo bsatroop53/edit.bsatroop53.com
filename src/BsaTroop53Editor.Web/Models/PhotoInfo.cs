@@ -26,7 +26,7 @@ namespace BsaTroop53Editor.Web.Models
 
         // ---------------- Constructor ----------------
 
-        public PhotoInfo( string orginalFileName, string base64Value , long fileSize )
+        public PhotoInfo( string orginalFileName, string base64Value, long fileSize )
         {
             this.Id = ++nextId;
 
@@ -50,6 +50,20 @@ namespace BsaTroop53Editor.Web.Models
         public string Base64Value { get; }
 
         public long FileSize { get; }
+
+        /// <summary>
+        /// If the photo's date is the same as the post date (true)
+        /// or if we should use <see cref="ActualDate"/> (false).
+        /// </summary>
+        public bool PhotoSameAsPostDate { get; set; } = true;
+
+        /// <summary>
+        /// If the actual photo date is different than the post date,
+        /// this should be set.
+        /// </summary>
+        public DateOnly? ActualDate { get; set; } = null;
+
+        public bool DateIsEstimate { get; set; } = false;
 
         public string? AltText { get; set; } = null;
 

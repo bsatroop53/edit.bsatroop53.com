@@ -8,6 +8,10 @@
             PhotoInfo photo = this.Value[i];
             string altTextClass = "altField" + photo.Id;
             string captionTextClass = "captionField" + photo.Id;
+            string modifyDateCheckClass = "modifyPhotoDateCheck" + photo.Id;
+            string photoDateDateClass = "photoDate" + photo.Id;
+            string dateEstimateClass = "photoEstimate" + photo.Id;
+
             <div class="panel panel-default">
                 <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <span>@photo.OriginalFileName</span>
@@ -59,6 +63,39 @@
                                     spellcheck="true"
                                 />
                             </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Photo</label>
+                            <p class="checkbox">
+                                <label for="@modifyDateCheckClass">
+                                    <InputCheckbox
+                                        id="@modifyDateCheckClass"
+                                        @bind-Value="photo.PhotoSameAsPostDate"
+                                    />
+                                    Same as post date.
+                                </label>
+                            </p>
+                            @if( photo.PhotoSameAsPostDate == false )
+                            {
+                                <p>
+                                    <InputDate
+                                        id="@photoDateDateClass"
+                                        class="form-control"
+                                        Type="InputDateType.Date"
+                                        min="@(new DateTime( 1924, 1, 1 ).ToString( "yyyy-MM-dd" ))"
+                                        max="@DateTime.Today.ToString( "yyyy-MM-dd" )"
+                                        @bind-Value="photo.ActualDate"
+                                    />
+                                </p>
+                                <p class="checkbox">
+                                    <label for="@dateEstimateClass">
+                                        <InputCheckbox id="@dateEstimateClass"
+                                            @bind-Value="photo.DateIsEstimate"
+                                        />
+                                        Date is estimate.
+                                    </label>
+                                </p>
+                            }
                         </div>
                     </div>
                 </div>
