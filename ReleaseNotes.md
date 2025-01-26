@@ -1,3 +1,15 @@
+## Version 2.1.0
+
+### Changes
+
+* Added ability to add a date to a photo if the photo was taken on a different date than the post was.
+* Added ability to add editor notes on a photo if a current or future editor needs more context on where information about a photo came from.
+* Fixed an issue where if a title had a ' in it, it could break the Eagle Scout Project map page.
+
+### Known Issues
+
+* Leaving the Editor page removes all data from the form.
+
 ## Version 2.0.3
 
 ### Changes
