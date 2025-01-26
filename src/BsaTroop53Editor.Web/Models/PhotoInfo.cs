@@ -69,6 +69,8 @@ namespace BsaTroop53Editor.Web.Models
 
         public string? Caption { get; set; } = null;
 
+        public string? Notes { get; set; } = null;
+
         // ---------------- Functions ----------------
 
         public double GetCompressionSize()

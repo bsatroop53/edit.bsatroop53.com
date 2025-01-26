@@ -62,6 +62,7 @@ namespace BsaTroop53Editor.Web
                     "Image",
                     new XElement( "Alt", photo.AltText ),
                     new XElement( "Caption", photo.Caption ),
+                    new XElement( "Notes", photo.Notes ),
                     new XElement( "ThumbnailScale", photo.GetCompressionSize() )
                 );
 

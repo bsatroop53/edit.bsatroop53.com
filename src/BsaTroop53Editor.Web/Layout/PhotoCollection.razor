@@ -8,6 +8,7 @@
             PhotoInfo photo = this.Value[i];
             string altTextClass = "altField" + photo.Id;
             string captionTextClass = "captionField" + photo.Id;
+            string noteTextClass = "notesField" + photo.Id;
             string modifyDateCheckClass = "modifyPhotoDateCheck" + photo.Id;
             string photoDateDateClass = "photoDate" + photo.Id;
             string dateEstimateClass = "photoEstimate" + photo.Id;
@@ -60,6 +61,22 @@
                                     class="form-control"
                                     @bind-Value="photo.Caption"
                                     placeholder="Who or what is in this photo?"
+                                    spellcheck="true"
+                                />
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <label for="@captionTextClass">
+                                    Editor Notes
+                                </label>
+                            </p>
+                            <p>
+                                <InputText
+                                    id="@altTextClass"
+                                    class="form-control"
+                                    @bind-Value="photo.Notes"
+                                    placeholder="Notes for current or future website editors."
                                     spellcheck="true"
                                 />
                             </p>

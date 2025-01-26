@@ -84,6 +84,18 @@ For example, if a photo is of a newspaper clipping from a troop event, the capti
 
 Another example could be a photo of two scouts setting up a tent.  A caption could say "Seth and Rob setting up their tent," while the alt text could say "Two scouts standing in a field next to a collapsed tent on the ground.  The scout on the left is holding tent poles, the scout on the right is pointing to the tent."
 
+### What are "Editor Notes"?
+
+These are notes targeted towards editors of the website.
+These generally are not visible to visitors of the website unless they click on a button.
+
+These notes can include:
+
+* Information on why a date was chosen for the photo.
+* Best guess at names or location of the photo.
+* Source of a photo.
+* Any information that an editor should be aware of before approving a post.
+
 ### What exactly are tags?
 
 Tags, or metadata, helps describe an item and allows for it to be found again by searching.  Tags can assist in categorizing similar themes across posts (e.g. locations, or people).  It also helps search engines index the website.
