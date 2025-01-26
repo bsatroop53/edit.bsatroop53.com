@@ -70,10 +70,10 @@ namespace BsaTroop53Editor.Web
                     imageElement.Add(
                         new XElement(
                             "Date",
-                            new XElement( "year", photo.ActualDate.Value.Year ),
-                            new XElement( "month", photo.ActualDate.Value.Month ),
-                            new XElement( "day", photo.ActualDate.Value.Day ),
-                            new XAttribute( "estimate", photo.DateIsEstimate )
+                            new XElement( "Year", photo.ActualDate.Value.Year ),
+                            new XElement( "Month", photo.ActualDate.Value.Month ),
+                            new XElement( "Day", photo.ActualDate.Value.Day ),
+                            new XAttribute( "Estimate", photo.DateIsEstimate )
                         )
                     );
                 }
