@@ -47,7 +47,7 @@
                                 <div class="panel-heading">
                                     <details class="editor-notes-details" aria-label="View Editor Notes">
                                         <summary class="editor-notes-summary">
-                                            <i class="fa-solid fa-circle-info"></i>
+                                            <span><strong>(i)</strong></span>
                                         </summary>
                                         <div class="editor-notes-content">
                                             @if( imageContext.ActualDate.HasValue )
@@ -63,7 +63,7 @@
                                             }
                                             @if( string.IsNullOrEmpty( imageContext.Notes ) == false )
                                             {
-                                                <p><em><strong>Editor's Notes:</strong></em> @imageContext.Notes</p>
+                                                <p><em><strong>Editor's Notes:</strong> @imageContext.Notes</em></p>
                                             }
                                         </div>
                                     </details>
