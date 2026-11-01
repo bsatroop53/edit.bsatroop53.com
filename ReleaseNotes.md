@@ -1,3 +1,9 @@
+## Version 2.2.1
+
+### Changes
+
+* Bumped from .NET 8 to .NET 10.
+
 ## Version 2.1.0
 
 ### Changes
